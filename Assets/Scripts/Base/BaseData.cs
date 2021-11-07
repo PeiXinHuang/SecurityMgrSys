@@ -14,22 +14,28 @@ public class BaseData:Object
         BusinessControl,
         UserControl,
         InfoControl
+        
     }
 
+    //默认显示用户面板
     private ContentType currentSelectContent = ContentType.SelfInfo;
 
-    private event UnityAction<ContentType> updateContent;
+    private event UnityAction UpdateContentEvent;
 
 
-    public void AddEventListener(string eventName, UnityAction<ContentType> function)
+    public void AddEventListener(string eventName, UnityAction function)
     {
-        if (eventName == "updateContent")
-            updateContent += function;
+        if (eventName == "updateContentEvent")
+            UpdateContentEvent += function;
+        else
+            Debug.LogWarning("Event: " + eventName + " is not exit");
     }
-    public void RemoveEventListener(string eventName, UnityAction<ContentType> function)
+    public void RemoveEventListener(string eventName, UnityAction function)
     {
-        if (eventName == "updateContent")
-            updateContent -= function;
+        if (eventName == "updateContentEvent")
+            UpdateContentEvent -= function;
+        else
+            Debug.LogWarning("Event: " + eventName + " is not exit");
     }
 
 
@@ -42,7 +48,7 @@ public class BaseData:Object
     {
         currentSelectContent = contentType;
 
-        if (updateContent != null)
-            updateContent(currentSelectContent);
+        if (UpdateContentEvent != null)
+            UpdateContentEvent();
     }
 }

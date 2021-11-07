@@ -4,41 +4,79 @@ using UnityEngine;
 
 
 /// <summary>
-///  ÓÎÏ·¿ØÖÆÆ÷
+///  æ¸¸æˆæ§åˆ¶å™¨
 /// </summary>
 public class GameManager : MonoBehaviour
 {
-    
-    void Start()
+
+
+    private static GameManager instance;
+    public static GameManager Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = (GameManager)FindObjectOfType(typeof(GameManager));
+                if (instance == null)
+                {
+                    GameObject GameManagerObj = new GameObject("GameManager");
+                    instance = (GameManager)GameManagerObj.AddComponent(typeof(GameManager));
+
+                }
+
+            }
+
+            return instance;
+        }
+
+    }
+
+
+    private User currentUser = null; 
+    public void SetCurrentUser(User user)
+    {
+        currentUser = user;
+    }
+    public User GetCurrentUser()
+    {
+        return currentUser;
+    }
+    public bool HasSetUser()
+    {
+        return !string.IsNullOrEmpty(currentUser.userId);
+    }
+
+
+
+    /// <summary>
+    /// ç¨‹åºå…¥å£
+    /// </summary>
+    private void Start()
     {
         InitGame();
     }
 
+
+
+
     /// <summary>
-    /// ³õÊ¼»¯ÓÎÏ·
+    /// åˆå§‹åŒ–æ¸¸æˆ
     /// </summary>
     private void InitGame()
     {
 
-        //´´½¨»ù´¡¶ÔÏó
-        BaseMgr baseMgr = BaseMgr.Instance; //»ù´¡½çÃæ¹ÜÀí¶ÔÏó
-        SelfInfoMgr selfInfoMgr = SelfInfoMgr.Instance; //¸öÈËĞÅÏ¢½çÃæ¹ÜÀí¶ÔÏó
+        //åˆ›å»ºåŸºç¡€å¯¹è±¡
+        BaseMgr baseMgr = BaseMgr.Instance; //åŸºç¡€ç•Œé¢ç®¡ç†å™¨
+        LoginMgr loginMgr = LoginMgr.Instance; //ç™»å½•ç•Œé¢ç®¡ç†å™¨
+        UserControlMgr userControlMgr = UserControlMgr.Instance; //ç”¨æˆ·ç®¡ç†ç®¡ç†å™¨
 
-        //Ë¢ĞÂ»ù´¡Ãæ°å
-        BaseMgr.Instance.UpdateListPanel(SelfInfoMgr.Instance.data.GetCurrentUser());
-        BaseMgr.Instance.UpdateUserPanel(SelfInfoMgr.Instance.data.GetCurrentUser());
-        BaseMgr.Instance.UpdateContentPanel(BaseMgr.Instance.data.GetCurrentSelectContent());
+
+
+        //ç¬¬ä¸€æ¬¡æ‰“å¼€ï¼Œæ˜¾ç¤ºç™»å½•é¢æ¿
+        LoginMgr.Instance.ShowLoginPanel();
     }
 
 
-    //²âÊÔ´úÂë
-    private void TextCode()
-    {
-        //User user = new User();
-        //user.InitUser("000001", "ÓÃ»§A", "********", UserType.Member);
-
-        //User user = new User();
-        //user.InitUser("00002", "ÀîËÄ", User.UserJob.Admin, "ÄĞ", "12312212123", "888888");
-        //UserDatabaseMgr.Instance.InsertUserData(user);
-    }
+ 
 }

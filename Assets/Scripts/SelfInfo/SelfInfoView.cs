@@ -5,11 +5,6 @@ using UnityEngine.UI;
 
 public class SelfInfoView : MonoBehaviour
 {
-    [Header("登录界面")]
-    public Image loginPanel;
-    public Button loginBtn;
-    public InputField idInput;
-    public InputField passwordInput;
 
     [Header("用户界面")]
     public Image userPanel;
@@ -34,18 +29,15 @@ public class SelfInfoView : MonoBehaviour
     public Button modifyBtn;
 
 
-    //刷新登录界面，如果已经登录，隐藏登录界面，没有登录，显示登录界面
-    public void UpdateSelfInfoContent(User user)
-    {
-        if (user.isEmptyUser())
-            loginPanel.rectTransform.SetAsLastSibling();
-        else
-            userPanel.rectTransform.SetAsLastSibling();
-    }
 
     //刷新个人信息用户界面
-    public void UpdateUserPanel(User user)
+    public void UpdateContent(User user)
     {
+        if (user.isEmptyUser())
+        {
+            throw new System.Exception("Fail to set self info user Content , because user is null");
+        }
+
         idCheckInput.text = user.userId;
         passwordCheckInput.text = user.password;
         sexCheckInput.text = user.sex;

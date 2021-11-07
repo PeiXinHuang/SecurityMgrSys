@@ -139,11 +139,11 @@ public class UserDatabaseMgr : MonoBehaviour
     }
 
     /// <summary>
-    /// 获取用户
+    /// 根据Id获取用户
     /// </summary>
     /// <param name="id">用户Id</param>
     /// <returns>用户</returns>
-    public User GetUserData(string userId)
+    public User GetUserDataById(string userId)
     {
         User user = new User();
         try
@@ -184,14 +184,84 @@ public class UserDatabaseMgr : MonoBehaviour
         return user;
     }
 
-    public List<User> GetUsersData(List<string> userIds)
-    {
-        return new List<User>();
-    }
 
-    public List<User> GetUsersData()
+
+
+    /// <summary>
+    /// 查询用户
+    /// </summary>
+    /// <param name="user">user内部包含查询条件</param>
+    /// <returns></returns>
+    public List<User> GetUsersData(User user)
     {
-        return new List<User>();
+        List<User> users = new List<User>();
+
+        string sql = "select * from user ";
+        List<string> conditions = new List<string>();
+
+        if (!string.IsNullOrEmpty(user.userId))
+            conditions.Add(string.Format("userId = '{0}'", user.userId));
+        if (!string.IsNullOrEmpty(user.userName))
+            conditions.Add(string.Format("username = '{0}'", user.userName));
+        if (!string.IsNullOrEmpty(user.sex))
+            conditions.Add(string.Format("sex = '{0}'", user.sex));
+        switch (user.userJob)
+        {
+            case User.UserJob.None: break;
+            case User.UserJob.Member:
+            case User.UserJob.Admin:
+            case User.UserJob.SysAdmin:
+                conditions.Add(string.Format("job = '{0}'", user.JobToString(user.userJob))); break;
+        }
+
+        if (conditions.Count != 0)
+        {
+            sql += "where ";
+            for (int i = 0; i < conditions.Count - 1; i++)
+            {
+
+                sql += conditions[i];
+                sql += " and ";
+            }
+            sql += conditions[conditions.Count - 1];
+        }
+
+
+
+        Debug.Log(" searchSql is " + sql);
+
+        try
+        {
+            conn.Open();
+            //执行查询语句，并将查询到的数据返回到reader中
+            MySqlCommand command = new MySqlCommand(sql, conn);
+            MySqlDataReader reader = command.ExecuteReader();
+
+
+            while(reader.Read())
+            {
+                User newUser = new User();
+                newUser.userId = reader[0].ToString();
+                newUser.userJob = user.StringToJob(reader[1].ToString());
+                newUser.userName = reader[2].ToString();
+                newUser.sex = reader[3].ToString();
+                newUser.password = reader[4].ToString();
+                newUser.phone = reader[5].ToString();
+
+                users.Add(newUser);
+            }
+
+        }
+        catch (System.Exception e)
+        {
+            Debug.Log("GetUsersData fail:" + e.ToString());
+        }
+        finally
+        {
+            conn.Close();
+        }
+
+        return users;
     }
 
     /// <summary>

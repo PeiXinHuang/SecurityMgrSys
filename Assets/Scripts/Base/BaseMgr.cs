@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// 基础管理类，用于管理基本的数据和UI界面，包括
-/// 基础面板的显示
-/// 基本的数据（当前登录的用户数据）
+/// 基础管理类，用于管理基本的数据和UI界面
 /// </summary>
 public class BaseMgr : MonoBehaviour
 {
@@ -50,33 +48,33 @@ public class BaseMgr : MonoBehaviour
     /// <summary>
     /// 添加事件处理
     /// </summary>
-
-
     private void AddEventHander()
     {
 
 
-        data.AddEventListener("updateContent", UpdateContentPanel);
+        data.AddEventListener("updateContentEvent", UpdateContentPanel);
 
         //绑定按钮事件
-        view.businessControlBtn.onClick.AddListener(() => OnClickListBtn(BaseData.ContentType.BusinessControl));
+        view.businessControlBtn.onClick.AddListener(()=>OnClickListBtn(BaseData.ContentType.BusinessControl));
         view.selfInfoBtn.onClick.AddListener(() => OnClickListBtn(BaseData.ContentType.SelfInfo));
         view.userControlBtn.onClick.AddListener(() => OnClickListBtn(BaseData.ContentType.UserControl));
         view.infoControlBtn.onClick.AddListener(() => OnClickListBtn(BaseData.ContentType.InfoControl));
     }
 
-    public void UpdateUserPanel(User user)
+    public void UpdateUserPanel()
     {
-        
-        view.UpdateUserPanel(user);
+
+        view.UpdateUserPanel(GameManager.Instance.GetCurrentUser());
     }
-    public void UpdateListPanel(User user)
+    public void UpdateListPanel()
     {
-        view.UpdateListPanel(user);
+
+        view.UpdateListPanel(GameManager.Instance.GetCurrentUser());
     }
-    public void UpdateContentPanel(BaseData.ContentType contentType)
+    public void UpdateContentPanel()
     {
-        view.UpdateContentPanel(contentType);
+
+        view.UpdateContentPanel(data.GetCurrentSelectContent());
     }
 
     private void OnClickListBtn(BaseData.ContentType contentType)

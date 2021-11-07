@@ -9,6 +9,7 @@ public class User : Object
     // 用户类型
     public enum UserJob
     {
+        None, //未设置
         Member, // 安检员
         Admin, // 安检管理员
         SysAdmin //系统管理员
@@ -71,4 +72,18 @@ public class User : Object
     {
         return string.IsNullOrEmpty(userId);
     }
+
+#if UNITY_EDITOR 
+    public void DebugInfo()
+    {
+        Debug.Log(
+            "userId: " + this.userId + "\t" +
+            "userName: " + this.userName + "\t" +
+            "userSex: " + this.sex + "\t" +
+            "job" + this.JobToString(this.userJob) + "\t" +
+            "userPhone: " + this.phone + "\t" +
+            "password" + this.password
+            );
+    }
+#endif
 }

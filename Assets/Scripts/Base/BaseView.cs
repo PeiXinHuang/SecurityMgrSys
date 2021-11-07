@@ -21,13 +21,16 @@ public class BaseView : MonoBehaviour
     public Image businessControlContent;
     public Image infoControlContent;
 
+
+
+
     // 刷新基础面板的用户面板视图
     public void UpdateUserPanel(User user)
     {
 
         if (user.isEmptyUser())
         {
-            userNameText.text = "未登录";
+            throw new System.Exception("Fail to set list's user Panel, bscause user is empty");
         }
         else
         {
@@ -42,14 +45,9 @@ public class BaseView : MonoBehaviour
     public void UpdateListPanel(User user)
     {
 
-        //传入的用户是空的，表示退出，只显示个人信息
         if (user.isEmptyUser())
         {
-            selfInfoBtn.gameObject.SetActive(true);
-            userControlBtn.gameObject.SetActive(false);
-            businessControlBtn.gameObject.SetActive(false);
-            infoControlBtn.gameObject.SetActive(false);
-            return;
+            throw new System.Exception("Fail to set list Panel, bscause user is empty");
         }
     
         if(user.userJob == User.UserJob.Member)
@@ -100,4 +98,6 @@ public class BaseView : MonoBehaviour
                 break;
         }
     }
+
+
 }

@@ -51,34 +51,23 @@ public class SelfInfoMgr : MonoBehaviour
     {
 
         //绑定按钮事件
-        view.loginBtn.onClick.AddListener(OnClickLogin);
-        view.logoutBtn.onClick.AddListener(OnClickLogout);
         view.modifyBtn.onClick.AddListener(OnClickModify);
 
-        //用户登录或注销的时候，刷新基础面板的用户面板和选项列表  
-        data.AddEventListener("updateUserEvent", BaseMgr.Instance.UpdateListPanel);
-        data.AddEventListener("updateUserEvent", BaseMgr.Instance.UpdateUserPanel);  
 
         //刷新个人信息面板
-        data.AddEventListener("updateUserEvent", view.UpdateSelfInfoContent);
-        data.AddEventListener("updateUserEvent", view.UpdateUserPanel);
+        data.AddEventListener("updateUserEvent", SelfInfoMgr.Instance.UpdateContent);
 
 
-    }
-
-
-    private void OnClickLogin()
-    {
-        data.Login(view.idInput.text, view.passwordInput.text);
-    }
-
-    private void OnClickLogout()
-    {
-        data.Logout();
     }
 
     private void OnClickModify()
     {
         data.Modify(view.userNameModifyInput.text,view.passwordModifyInput.text,view.phoneModifyInput.text);
+    }
+
+
+    public void UpdateContent()
+    {
+        view.UpdateContent(GameManager.Instance.GetCurrentUser());
     }
 }
