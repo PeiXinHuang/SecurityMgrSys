@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 
 /// <summary>
 ///  游戏控制器
@@ -32,6 +32,10 @@ public class GameManager : MonoBehaviour
 
     }
 
+    public Image loginView;
+    public Image ListView;
+    public Image DetailView;
+    public List<Image> DetailContentViews;
 
     private User currentUser = null; 
     public void SetCurrentUser(User user)
@@ -48,6 +52,16 @@ public class GameManager : MonoBehaviour
     }
 
 
+    private void Awake()
+    {
+        loginView.gameObject.SetActive(true);
+        ListView.gameObject.SetActive(true);
+        DetailView.gameObject.SetActive(true);
+        foreach (Image image in DetailContentViews)
+        {
+            image.gameObject.SetActive(true);
+        }
+    }
 
     /// <summary>
     /// 程序入口
@@ -58,7 +72,7 @@ public class GameManager : MonoBehaviour
     }
 
 
-
+    
 
     /// <summary>
     /// 初始化游戏

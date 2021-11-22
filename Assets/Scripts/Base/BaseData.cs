@@ -6,18 +6,19 @@ using UnityEngine.Events;
 public class BaseData:Object
 {
     /// <summary>
-    /// µ±Ç°ÏÔÊ¾µÄÃæ°å
+    /// å½“å‰æ˜¾ç¤ºçš„é¢æ¿
     /// </summary>
     public enum ContentType
     {
         SelfInfo,
         BusinessControl,
         UserControl,
-        InfoControl
+        InfoControl,
+        ToolControl
         
     }
 
-    //Ä¬ÈÏÏÔÊ¾ÓÃ»§Ãæ°å
+    //é»˜è®¤æ˜¾ç¤ºç”¨æˆ·é¢æ¿
     private ContentType currentSelectContent = ContentType.SelfInfo;
 
     private event UnityAction UpdateContentEvent;

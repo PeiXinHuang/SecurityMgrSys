@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -6,25 +6,33 @@ using UnityEngine.UI;
 public class BaseView : MonoBehaviour
 {
 
-    [Header("»ù´¡Ãæ°å¡ªÓÃ»§Ãæ°å")]
+    [Header("åŸºç¡€é¢æ¿â€”ç”¨æˆ·é¢æ¿")]
     public Text userNameText;
 
-    [Header("»ù´¡Ãæ°å¡ªÁĞ±íÃæ°å")]
+    [Header("åŸºç¡€é¢æ¿â€”åˆ—è¡¨é¢æ¿")]
     public Button selfInfoBtn; 
     public Button userControlBtn; 
     public Button businessControlBtn; 
     public Button infoControlBtn;
+    public Button toolControlBtn;
 
-    [Header("ÏêÇéÃæ°å")]
+
+    public Image selfInfoHighStyleImg;
+    public Image userControlHighStyleImg;
+    public Image businessControlHighStyleImg;
+    public Image infoControlHighStyleImg;
+    public Image toolControlHighStyleImg;
+
+    [Header("è¯¦æƒ…é¢æ¿")]
     public Image selfInfoContent;
     public Image userControlContent;
     public Image businessControlContent;
     public Image infoControlContent;
 
+    
 
 
-
-    // Ë¢ĞÂ»ù´¡Ãæ°åµÄÓÃ»§Ãæ°åÊÓÍ¼
+    // åˆ·æ–°åŸºç¡€é¢æ¿çš„ç”¨æˆ·é¢æ¿è§†å›¾
     public void UpdateUserPanel(User user)
     {
 
@@ -40,8 +48,38 @@ public class BaseView : MonoBehaviour
     }
 
 
+    public void UpdateListViewStyle(BaseData.ContentType contentType)
+    {
+        selfInfoHighStyleImg.gameObject.SetActive(false);
+        userControlHighStyleImg.gameObject.SetActive(false); 
+        businessControlHighStyleImg.gameObject.SetActive(false); 
+        infoControlHighStyleImg.gameObject.SetActive(false); 
+        toolControlHighStyleImg.gameObject.SetActive(false);
 
-    // ¸ù¾İÓÃ»§ÀàĞÍË¢ĞÂ»ù´¡Ãæ°åµÄÁĞ±íÊÓÍ¼£¬°²¼ìÔ±²»ÏÔÊ¾ÓÃ»§¹ÜÀí£¬°²¼ì¹ÜÀíÔ±ºÍÏµÍ³¹ÜÀíÔ±ÏÔÊ¾È«²¿
+        switch (contentType)
+        {
+            case BaseData.ContentType.SelfInfo:
+                selfInfoHighStyleImg.gameObject.SetActive(true);
+                break;
+            case BaseData.ContentType.BusinessControl:
+                businessControlHighStyleImg.gameObject.SetActive(true);
+                break;
+            case BaseData.ContentType.UserControl:
+                userControlHighStyleImg.gameObject.SetActive(true);
+                break;
+            case BaseData.ContentType.InfoControl:
+                infoControlHighStyleImg.gameObject.SetActive(true);
+                break;
+            case BaseData.ContentType.ToolControl:
+                toolControlHighStyleImg.gameObject.SetActive(true);
+                break;
+            default:
+                break;
+        }
+    }
+
+
+    // æ ¹æ®ç”¨æˆ·ç±»å‹åˆ·æ–°åŸºç¡€é¢æ¿çš„åˆ—è¡¨è§†å›¾ï¼Œå®‰æ£€å‘˜ä¸æ˜¾ç¤ºç”¨æˆ·ç®¡ç†ï¼Œå®‰æ£€ç®¡ç†å‘˜å’Œç³»ç»Ÿç®¡ç†å‘˜æ˜¾ç¤ºå…¨éƒ¨
     public void UpdateListPanel(User user)
     {
 
@@ -56,6 +94,7 @@ public class BaseView : MonoBehaviour
             userControlBtn.gameObject.SetActive(false);
             businessControlBtn.gameObject.SetActive(true);
             infoControlBtn.gameObject.SetActive(true);
+            toolControlBtn.gameObject.SetActive(true);
         }
         else if (user.userJob == User.UserJob.Admin)
         {
@@ -63,6 +102,7 @@ public class BaseView : MonoBehaviour
             userControlBtn.gameObject.SetActive(true);
             businessControlBtn.gameObject.SetActive(true);
             infoControlBtn.gameObject.SetActive(true);
+            toolControlBtn.gameObject.SetActive(true);
         }
         else if (user.userJob == User.UserJob.SysAdmin)
         {
@@ -70,14 +110,15 @@ public class BaseView : MonoBehaviour
             userControlBtn.gameObject.SetActive(true);
             businessControlBtn.gameObject.SetActive(true);
             infoControlBtn.gameObject.SetActive(true);
+            toolControlBtn.gameObject.SetActive(true);
         }
 
     }
 
     /// <summary>
-    /// ÏÔÊ¾ÏêÇéÃæ°å,½«ÒªÏÔÊ¾µÄÃæ°åÒÆµ½×îÇ°Ãæ
+    /// æ˜¾ç¤ºè¯¦æƒ…é¢æ¿,å°†è¦æ˜¾ç¤ºçš„é¢æ¿ç§»åˆ°æœ€å‰é¢
     /// </summary>
-    /// <param name="contentType">ÏêÇéÃæ°åÀàĞÍ</param>
+    /// <param name="contentType">è¯¦æƒ…é¢æ¿ç±»å‹</param>
     public void UpdateContentPanel(BaseData.ContentType contentType)
     {
         switch (contentType)
@@ -99,5 +140,5 @@ public class BaseView : MonoBehaviour
         }
     }
 
-
+    
 }

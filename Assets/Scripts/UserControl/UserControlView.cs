@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class UserControlView : MonoBehaviour
 {
 
-    string currentUserId = "";
+
 
     [Header("查找操作相关")]
     public InputField idInput;

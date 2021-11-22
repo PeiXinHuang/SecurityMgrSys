@@ -53,12 +53,14 @@ public class BaseMgr : MonoBehaviour
 
 
         data.AddEventListener("updateContentEvent", UpdateContentPanel);
+        data.AddEventListener("updateContentEvent", UpdateListBtnViewStyle);
 
         //绑定按钮事件
         view.businessControlBtn.onClick.AddListener(()=>OnClickListBtn(BaseData.ContentType.BusinessControl));
         view.selfInfoBtn.onClick.AddListener(() => OnClickListBtn(BaseData.ContentType.SelfInfo));
         view.userControlBtn.onClick.AddListener(() => OnClickListBtn(BaseData.ContentType.UserControl));
         view.infoControlBtn.onClick.AddListener(() => OnClickListBtn(BaseData.ContentType.InfoControl));
+        view.toolControlBtn.onClick.AddListener(() => OnClickListBtn(BaseData.ContentType.ToolControl));
     }
 
     public void UpdateUserPanel()
@@ -73,12 +75,18 @@ public class BaseMgr : MonoBehaviour
     }
     public void UpdateContentPanel()
     {
-
-        view.UpdateContentPanel(data.GetCurrentSelectContent());
+        view.UpdateContentPanel(data.GetCurrentSelectContent());  
     }
+    public void UpdateListBtnViewStyle()
+    {
+        view.UpdateListViewStyle(data.GetCurrentSelectContent());
+    }
+
+
 
     private void OnClickListBtn(BaseData.ContentType contentType)
     {
+        
         data.SetCurrentSelectContent(contentType);
     }
 
