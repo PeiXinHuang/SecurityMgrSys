@@ -6,27 +6,16 @@ using UnityEngine.UI;
 public class SelfInfoView : MonoBehaviour
 {
 
-    [Header("用户界面")]
-    public Image userPanel;
+    
 
-    [Header("用户界面——查看信息")]
-    public InputField idCheckInput;
-    public InputField passwordCheckInput;
-    public InputField sexCheckInput;
-    public InputField phoneCheckInput;
-    public InputField jobCheckInput;
-    public InputField userNameCheckInput;
-    public Button logoutBtn;
-
-
-    [Header("用户界面——修改信息")]
-    public InputField idModifyInput;
-    public InputField passwordModifyInput;
-    public InputField sexModifyInput;
-    public InputField phoneModifyInput;
-    public InputField jobModifyInput;
-    public InputField userNameModifyInput;
-    public Button modifyBtn;
+    
+    public InputField idInput;
+    public InputField passwordInput;
+    public InputField sexInput;
+    public InputField phoneInput;
+    public InputField jobInput;
+    public InputField userNameInput;
+    public Button saveBtn;
 
 
 
@@ -38,19 +27,14 @@ public class SelfInfoView : MonoBehaviour
             throw new System.Exception("Fail to set self info user Content , because user is null");
         }
 
-        idCheckInput.text = user.userId;
-        passwordCheckInput.text = user.password;
-        sexCheckInput.text = user.sex;
-        phoneCheckInput.text = user.phone;
-        jobCheckInput.text = user.JobToString(user.userJob);
-        userNameCheckInput.text = user.userName;
+        idInput.text = user.userId;
+        passwordInput.text = user.password;
+        sexInput.text = user.sex;
+        phoneInput.text = user.phone;
+        jobInput.text = user.JobToString(user.userJob);
+        userNameInput.text = user.userName;
 
-        idModifyInput.text = user.userId;
-        passwordModifyInput.text = user.password;
-        sexModifyInput.text = user.sex;
-        phoneModifyInput.text = user.phone;
-        jobModifyInput.text = user.JobToString(user.userJob);
-        userNameModifyInput.text = user.userName;
+     
     }
     
 }

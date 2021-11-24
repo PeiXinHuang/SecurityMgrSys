@@ -28,7 +28,7 @@ public class SelfInfoData:Object
     /// <summary>
     /// 修改个人信息
     /// </summary>
-    public void Modify(string username,string password, string phone)
+    public void SaveData(string username,string password, string phone)
     {
         User currentUser = GameManager.Instance.GetCurrentUser();
         if (!GameManager.Instance.HasSetUser())

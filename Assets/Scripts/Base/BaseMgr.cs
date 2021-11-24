@@ -61,6 +61,9 @@ public class BaseMgr : MonoBehaviour
         view.userControlBtn.onClick.AddListener(() => OnClickListBtn(BaseData.ContentType.UserControl));
         view.infoControlBtn.onClick.AddListener(() => OnClickListBtn(BaseData.ContentType.InfoControl));
         view.toolControlBtn.onClick.AddListener(() => OnClickListBtn(BaseData.ContentType.ToolControl));
+
+        //点击个人信息面板，刷新显示个人信息
+        view.selfInfoBtn.onClick.AddListener(SelfInfoMgr.Instance.UpdateContent);
     }
 
     public void UpdateUserPanel()
@@ -88,6 +91,8 @@ public class BaseMgr : MonoBehaviour
     {
         
         data.SetCurrentSelectContent(contentType);
+
+        
     }
 
 

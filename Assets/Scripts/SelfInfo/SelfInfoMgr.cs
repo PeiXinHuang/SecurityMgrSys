@@ -51,7 +51,7 @@ public class SelfInfoMgr : MonoBehaviour
     {
 
         //绑定按钮事件
-        view.modifyBtn.onClick.AddListener(OnClickModify);
+        view.saveBtn.onClick.AddListener(OnClickSave);
 
 
         //刷新个人信息面板
@@ -60,9 +60,9 @@ public class SelfInfoMgr : MonoBehaviour
 
     }
 
-    private void OnClickModify()
+    private void OnClickSave()
     {
-        data.Modify(view.userNameModifyInput.text,view.passwordModifyInput.text,view.phoneModifyInput.text);
+        //data.Modify(view.userNameModifyInput.text,view.passwordModifyInput.text,view.phoneModifyInput.text);
     }
 
 
