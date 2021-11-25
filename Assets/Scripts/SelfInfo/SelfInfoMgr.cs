@@ -62,7 +62,7 @@ public class SelfInfoMgr : MonoBehaviour
 
     private void OnClickSave()
     {
-        //data.Modify(view.userNameModifyInput.text,view.passwordModifyInput.text,view.phoneModifyInput.text);
+        data.SaveData(view.passwordInput.text, view.phoneInput.text);
     }
 
 

@@ -53,6 +53,21 @@ public class User : Object
 
     }
 
+    public string JobToChinese(UserJob userJob)
+    {
+        switch (userJob)
+        {
+            case UserJob.Member:
+                return "安检员";
+            case UserJob.Admin:
+                return "安检管理员";
+            case UserJob.SysAdmin:
+                return "系统管理员";
+            default:
+                return "";
+        }
+    }
+
     public UserJob StringToJob(string userJob)
     {
         switch (userJob)

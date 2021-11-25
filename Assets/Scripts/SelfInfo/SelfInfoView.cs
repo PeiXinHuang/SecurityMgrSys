@@ -31,7 +31,7 @@ public class SelfInfoView : MonoBehaviour
         passwordInput.text = user.password;
         sexInput.text = user.sex;
         phoneInput.text = user.phone;
-        jobInput.text = user.JobToString(user.userJob);
+        jobInput.text = user.JobToChinese(user.userJob);
         userNameInput.text = user.userName;
 
      

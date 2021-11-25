@@ -28,7 +28,7 @@ public class SelfInfoData:Object
     /// <summary>
     /// 修改个人信息
     /// </summary>
-    public void SaveData(string username,string password, string phone)
+    public void SaveData(string password, string phone)
     {
         User currentUser = GameManager.Instance.GetCurrentUser();
         if (!GameManager.Instance.HasSetUser())
@@ -37,11 +37,7 @@ public class SelfInfoData:Object
         }
 
    
-        if (string.IsNullOrEmpty(username))
-        {
-            Debug.Log("用户名不可以为空");
-            return;
-        }
+      
 
         if (string.IsNullOrEmpty(password))
         {
@@ -49,7 +45,6 @@ public class SelfInfoData:Object
             return;
         }
 
-        currentUser.userName = username;
         currentUser.password = password;
         currentUser.phone = phone;
       
