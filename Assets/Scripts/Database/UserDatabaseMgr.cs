@@ -72,7 +72,8 @@ public class UserDatabaseMgr : MonoBehaviour
             string sql = string.Format("insert into user(userId,job,userName,sex,password," +
                 "phone) values('{0}','{1}','{2}','{3}','{4}','{5}')",user.userId,user.JobToString(user.userJob),
                 user.userName,user.sex,user.password,user.phone);
-           
+
+            Debug.Log("insert sql: " + sql);
             //执行插入语句
             MySqlCommand command = conn.CreateCommand();
             command.CommandText = sql;
@@ -93,18 +94,35 @@ public class UserDatabaseMgr : MonoBehaviour
     /// 删除用户
     /// </summary>
     /// <param name="id">用户id</param>
-    public void DeleteUserData(int userId)
+    public void DeleteUserData(string userId)
     {
-        
+       
+
+        try
+        {
+            conn.Open();
+
+            //数据库删除语句
+            string sql = string.Format("delete from user where userId = '{0}'", userId);
+            Debug.Log("delete sql is :" + sql);
+
+            //执行删除语句
+            MySqlCommand command = conn.CreateCommand();
+            command.CommandText = sql;
+            command.ExecuteNonQuery();
+
+            
+        }
+        catch (System.Exception e)
+        {
+            Debug.LogError("删除用户数据失败 " + e.ToString());
+        }
+        finally
+        {
+            conn.Close();
+        }
     }
 
-    /// <summary>
-    /// 清空数据库
-    /// </summary>
-    public void ClearUserData()
-    {
-
-    }
 
     /// <summary>
     /// 更新用户信息
@@ -305,6 +323,38 @@ public class UserDatabaseMgr : MonoBehaviour
     }
 
 
+    /// <summary>
+    /// 获取新用户ID
+    /// </summary>
+    /// <returns></returns>
+    public string GetNewUserId()
+    {
+        List<User> allUsers = GetUsersData(new User());
+        int newUserId = 0;
+        foreach (User user in allUsers)
+        {
+            if (newUserId < int.Parse(user.userId))
+            {
+                newUserId = int.Parse(user.userId);
+            }
+        }
+        newUserId += 1;
+        if (newUserId <= 0 || newUserId > 99999)
+        {
+            Debug.LogError("Fail to get new userId");
+            return "";
+        }
+
+        string tempIdStr = newUserId.ToString();;
+
+        string result = "";
+        for (int i = 0; i < 5 - tempIdStr.Length; i++)
+        {
+            result += "0";
+        }
+        result += tempIdStr;
+        return result;
+    }
 }
 
 

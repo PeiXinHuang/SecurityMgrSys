@@ -21,7 +21,8 @@ public class UserControlData : Object
         else
             Debug.LogWarning("Event: " + eventName + " is not exit");
     }
-    #region ²éÕÒÓÃ»§Ïà¹Ø
+
+    #region æŸ¥æ‰¾ç”¨æˆ·ç›¸å…³
 
     private string searchUserName = "";
     private string searchId = "";
@@ -42,8 +43,8 @@ public class UserControlData : Object
         switch (sex)
         {
             case 0: this.searchSex = ""; break;
-            case 1: this.searchSex = "ÄĞ"; break;
-            case 2: this.searchSex = "Å®"; break;
+            case 1: this.searchSex = "ç”·"; break;
+            case 2: this.searchSex = "å¥³"; break;
         }
     }
     public void SetSearchJob(int job)
@@ -81,28 +82,31 @@ public class UserControlData : Object
 
         if (SearchUsersEvent != null)
             SearchUsersEvent();
+
+        MessageBoxMgr.Instance.ShowInfo("æŸ¥æ‰¾æˆåŠŸ");
     }
     #endregion
 
-    #region Ìí¼ÓÓÃ»§Ïà¹Ø
+    #region æ·»åŠ ç”¨æˆ·ç›¸å…³
     public void AddUser(string userId, string userName,string phone,string password, int sexId,int jobId)
     {
 
         if (string.IsNullOrEmpty(userId))
         {
-            Debug.Log("ÇëÊäÈëĞÂÓÃ»§ÕËºÅ");
+            MessageBoxMgr.Instance.ShowWarnning("è¯·è¾“å…¥æ–°ç”¨æˆ·è´¦å·");
             return;
         }
 
         if (string.IsNullOrEmpty(userName))
         {
-            Debug.Log("ÇëÊäÈëĞÂÓÃ»§Ãû³Æ");
+            MessageBoxMgr.Instance.ShowWarnning("è¯·è¾“å…¥æ–°ç”¨æˆ·åç§°");
             return;
         }
 
         if (string.IsNullOrEmpty(password))
         {
-            Debug.Log("ÇëÊäÈëĞÂÓÃ»§ÃÜÂë");
+            MessageBoxMgr.Instance.ShowWarnning("è¯·è¾“å…¥æ–°ç”¨æˆ·å¯†ç ");
+            return;
         }
 
         User addUser = new User();
@@ -112,8 +116,8 @@ public class UserControlData : Object
         addUser.password = password;
         switch (sexId)
         {
-            case 0: addUser.sex = "ÄĞ";break;
-            case 1: addUser.sex = "Å®";break;
+            case 0: addUser.sex = "ç”·";break;
+            case 1: addUser.sex = "å¥³";break;
         }
         switch (jobId)
         {
@@ -124,7 +128,52 @@ public class UserControlData : Object
         }
 
         UserDatabaseMgr.Instance.InsertUserData(addUser);
-        
+        MessageBoxMgr.Instance.ShowInfo("åˆ›å»ºç”¨æˆ·æˆåŠŸ");
+    }
+    #endregion
+
+    #region ä¿®æ”¹ç”¨æˆ·ç›¸å…³
+    public void ModifyUser(string userId, string userName, string phone, string password, int sexId, int jobId)
+    {
+
+        if (string.IsNullOrEmpty(userId))
+        {
+            MessageBoxMgr.Instance.ShowWarnning("ç”¨æˆ·è´¦å·ä¸ºç©º");
+            return;
+        }
+
+        if (string.IsNullOrEmpty(userName))
+        {
+            MessageBoxMgr.Instance.ShowWarnning("è¯·è¾“å…¥ç”¨æˆ·åç§°");
+            return;
+        }
+
+        if (string.IsNullOrEmpty(password))
+        {
+            MessageBoxMgr.Instance.ShowWarnning("è¯·è¾“å…¥ç”¨æˆ·å¯†ç ");
+            return;
+        }
+
+        User addUser = new User();
+        addUser.userId = userId;
+        addUser.userName = userName;
+        addUser.phone = phone;
+        addUser.password = password;
+        switch (sexId)
+        {
+            case 0: addUser.sex = "ç”·"; break;
+            case 1: addUser.sex = "å¥³"; break;
+        }
+        switch (jobId)
+        {
+            case 0: addUser.userJob = User.UserJob.Member; break;
+            case 1: addUser.userJob = User.UserJob.Admin; break;
+            case 2: addUser.userJob = User.UserJob.SysAdmin; break;
+
+        }
+
+        UserDatabaseMgr.Instance.UpdateUserData(addUser);
+        MessageBoxMgr.Instance.ShowInfo("ä¿®æ”¹ç”¨æˆ·ä¿¡æ¯æˆåŠŸ");
     }
     #endregion
 }

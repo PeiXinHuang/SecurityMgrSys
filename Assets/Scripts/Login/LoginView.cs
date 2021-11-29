@@ -10,6 +10,7 @@ public class LoginView : MonoBehaviour
     public InputField userIdInput;
     public InputField passwordInput;
     public Button loginBtn;
+    public Button exitBtn;
 
     public void ShowLoginPanel()
     {

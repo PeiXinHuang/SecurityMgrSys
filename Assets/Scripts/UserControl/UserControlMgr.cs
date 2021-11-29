@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class UserControlMgr : MonoBehaviour
 {
+    #region 鍗曚緥
     private static UserControlMgr instance;
     public static UserControlMgr Instance
     {
@@ -25,6 +26,8 @@ public class UserControlMgr : MonoBehaviour
         }
 
     }
+    #endregion
+
 
     private UserControlView view;
     public UserControlData data;
@@ -36,33 +39,25 @@ public class UserControlMgr : MonoBehaviour
         AddEventHander();
     }
 
-
-
     /// <summary>
-    /// 添加事件处理
+    /// 娣诲姞浜嬩欢澶勭悊
     /// </summary>
     private void AddEventHander()
     {
+
+        //鏌ユ壘
         view.searchBtn.onClick.AddListener(OnClickSearchBtn);
-        view.resetBtn.onClick.AddListener(OnClickResetBtn);
-
-        view.backBtn.onClick.AddListener(view.HideDetailContent);
-
-        data.AddEventListener("SearchUsersEvent", UserControlMgr.Instance.ShowUsers);
+        data.AddEventListener("SearchUsersEvent", UserControlMgr.Instance.ShowSearchResult);
 
 
-        view.addUserBtn.onClick.AddListener(OnClickAddUserBtn);
-        view.addResetBtn.onClick.AddListener(OnClickAddResetBtn);
-
-
+        view.addBtn.onClick.AddListener(OnClickAddUserBtn);
+        view.motifyBtn.onClick.AddListener(OnClickModifyBtn);
         
+        //view.AddEventListener("DeleteUserEvent",da)
+
     }
 
-    public void OnClickResetBtn()
-    {
-        view.ResetSearch();
-    }
-
+   
     public void OnClickSearchBtn()
     {
         data.SetSearchId(view.idInput.text);
@@ -72,19 +67,16 @@ public class UserControlMgr : MonoBehaviour
         data.Search();
     }
     
-    public void ShowUsers()
+    public void ShowSearchResult()
     {
-        view.ClearScrollView();
+        view.ClearSearchResult();
 
         List<User> users = data.GetUsers();
 
-       
-
         for(int i = 0; i< users.Count; i++)
         {
-            User currentUser = users[i];
-            view.AddItem(currentUser.userId, currentUser.userName, currentUser.userJob);
-            
+            User newUser = users[i];
+            view.AddSearchResultItem(newUser);
         }
     }
 
@@ -94,9 +86,11 @@ public class UserControlMgr : MonoBehaviour
             view.addPasswordInput.text, view.addSexDropDown.value, view.addJobDropDown.value);
     }
 
-    public void OnClickAddResetBtn()
+    public void OnClickModifyBtn()
     {
-        view.ResetAdd();
+        data.ModifyUser(view.editIdInput.text, view.editNameInput.text, view.editPhoneInput.text,
+            view.editPasswordInput.text, view.editSexDropdown.value, view.editJobDropdown.value);
     }
+
 }
 

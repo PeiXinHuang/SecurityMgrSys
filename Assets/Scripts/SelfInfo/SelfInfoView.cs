@@ -19,7 +19,7 @@ public class SelfInfoView : MonoBehaviour
 
 
 
-    //刷新个人信息用户界面
+    //鍒锋柊涓汉淇℃伅鐢ㄦ埛鐣岄潰
     public void UpdateContent(User user)
     {
         if (user.isEmptyUser())

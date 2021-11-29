@@ -6,7 +6,7 @@ using UnityEngine.Events;
 public class SelfInfoData:Object
 {
  
-    private event UnityAction UpdateUserEvent; //刷新用户事件
+    private event UnityAction UpdateUserEvent; //鍒锋柊鐢ㄦ埛浜嬩欢
 
     public void AddEventListener(string eventName, UnityAction function)
     {
@@ -26,7 +26,7 @@ public class SelfInfoData:Object
 
 
     /// <summary>
-    /// 修改个人信息
+    /// 淇敼涓汉淇℃伅
     /// </summary>
     public void SaveData(string password, string phone)
     {
@@ -41,7 +41,7 @@ public class SelfInfoData:Object
 
         if (string.IsNullOrEmpty(password))
         {
-            Debug.Log("密码不能为空");
+            MessageBoxMgr.Instance.ShowWarnning("瀵嗙爜涓嶈兘涓虹┖");
             return;
         }
 
@@ -54,5 +54,7 @@ public class SelfInfoData:Object
 
         if (UpdateUserEvent != null)
             UpdateUserEvent();
+
+        MessageBoxMgr.Instance.ShowInfo("淇敼涓汉淇℃伅鎴愬姛");
     }
 }

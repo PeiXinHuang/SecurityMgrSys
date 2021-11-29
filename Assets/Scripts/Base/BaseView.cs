@@ -23,11 +23,15 @@ public class BaseView : MonoBehaviour
     public Image infoControlHighStyleImg;
     public Image toolControlHighStyleImg;
 
+    [Header("基础面板——退出按钮")]
+    public Button exitBtn;
+
     [Header("详情面板")]
     public Image selfInfoContent;
     public Image userControlContent;
     public Image businessControlContent;
     public Image infoControlContent;
+
 
     
 

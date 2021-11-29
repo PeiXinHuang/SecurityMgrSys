@@ -6,7 +6,7 @@ using UnityEngine.Events;
 public class LoginData:Object
 {
 
-    private event UnityAction LoginSuccessEvent; //Ë¢ĞÂÓÃ»§ÊÂ¼ş
+    private event UnityAction LoginSuccessEvent; //åˆ·æ–°ç”¨æˆ·äº‹ä»¶
 
     public void AddEventListener(string eventName, UnityAction function)
     {
@@ -27,28 +27,27 @@ public class LoginData:Object
 
 
     /// <summary>
-    /// µÇÂ¼
+    /// ç™»å½•
     /// </summary>
-    /// <param name="userId">ÓÃ»§id</param>
-    /// <param name="password">ÓÃ»§ÃÜÂë</param>
+    /// <param name="userId">ç”¨æˆ·id</param>
+    /// <param name="password">ç”¨æˆ·å¯†ç </param>
     public void Login(string userId, string password)
     {
         if (string.IsNullOrEmpty(userId))
         {
-            Debug.Log("ÓÃ»§Ãû²»ÄÜÎª¿Õ");
+            MessageBoxMgr.Instance.ShowWarnning("ç”¨æˆ·åä¸èƒ½ä¸ºç©º");
             return;
         }
         if (string.IsNullOrEmpty(password))
         {
-            Debug.Log("ÃÜÂë²»ÄÜÎª¿Õ");
+            MessageBoxMgr.Instance.ShowWarnning("å¯†ç ä¸èƒ½ä¸ºç©º");
             return;
         }
 
 
-        if (!UserDatabaseMgr.Instance.ChargeUserExit(userId)) //ÓÃ»§²»´æÔÚ
+        if (!UserDatabaseMgr.Instance.ChargeUserExit(userId)) //ç”¨æˆ·ä¸å­˜åœ¨
         {
-
-            Debug.Log("ÓÃ»§²»´æÔÚ");
+            MessageBoxMgr.Instance.ShowError("ç”¨æˆ·ä¸å­˜åœ¨");
             return;
         }
         else
@@ -56,7 +55,7 @@ public class LoginData:Object
             User user = UserDatabaseMgr.Instance.GetUserDataById(userId);
             if (user.password != password)
             {
-                Debug.Log("ÃÜÂë´íÎó");
+                MessageBoxMgr.Instance.ShowError("å¯†ç é”™è¯¯");
                 return;
             }
             GameManager.Instance.SetCurrentUser(user);
@@ -66,5 +65,6 @@ public class LoginData:Object
         if (GameManager.Instance.HasSetUser())
             LoginSuccessEvent();
 
+        MessageBoxMgr.Instance.ShowInfo("ç™»å½•æˆåŠŸ");
     }
 }

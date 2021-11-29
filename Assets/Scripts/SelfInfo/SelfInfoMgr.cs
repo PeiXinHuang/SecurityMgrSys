@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// ¸öÈËĞÅÏ¢¹ÜÀíÀà
+/// ä¸ªäººä¿¡æ¯ç®¡ç†ç±»
 /// </summary>
 public class SelfInfoMgr : MonoBehaviour
 {
-    // ÊµÏÖµ¥ÀıÄ£Ê½·ÃÎÊÊı¾İ¿â
+    // å®ç°å•ä¾‹æ¨¡å¼è®¿é—®æ•°æ®åº“
     private static SelfInfoMgr instance;
     public static SelfInfoMgr Instance
     {
@@ -45,16 +45,16 @@ public class SelfInfoMgr : MonoBehaviour
 
 
     /// <summary>
-    /// Ìí¼ÓÊÂ¼ş´¦Àí
+    /// æ·»åŠ äº‹ä»¶å¤„ç†
     /// </summary>
     private void AddEventHander()
     {
 
-        //°ó¶¨°´Å¥ÊÂ¼ş
+        //ç»‘å®šæŒ‰é’®äº‹ä»¶
         view.saveBtn.onClick.AddListener(OnClickSave);
 
 
-        //Ë¢ĞÂ¸öÈËĞÅÏ¢Ãæ°å
+        //åˆ·æ–°ä¸ªäººä¿¡æ¯é¢æ¿
         data.AddEventListener("updateUserEvent", SelfInfoMgr.Instance.UpdateContent);
 
 

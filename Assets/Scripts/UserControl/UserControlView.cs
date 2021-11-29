@@ -9,42 +9,41 @@ public class UserControlView : MonoBehaviour
 
 
 
-    [Header("≤È’“≤Ÿ◊˜œ‡πÿ")]
+    [Header("Êü•ÊâæÊìç‰ΩúÁõ∏ÂÖ≥")]
     public InputField idInput;
     public InputField userNameInput;
     public Dropdown sexDropDown;
     public Dropdown jobDropDown;
-    public Button resetBtn;
     public Button searchBtn;
 
-    [Header("≤È’“Ω·π˚œ‡πÿ")]
-    public RectTransform scrollViewContent;
-    public GameObject scrollViewItemPrefab;
+    [Header("Êü•ÊâæÁªìÊûúÁõ∏ÂÖ≥")]
+    public RectTransform searchResultContent;
+    public GameObject searchResultPrefab;
+    public Dictionary<string, GameObject> searchResultDir = new Dictionary<string, GameObject>();
 
-    [Header("ÃÌº””√ªßœ‡πÿ")]
+
+    [Header("ÁºñËæëÁî®Êà∑Áõ∏ÂÖ≥")]
+    public InputField editIdInput;
+    public InputField editNameInput;
+    public InputField editPhoneInput;
+    public InputField editPasswordInput;
+    public Dropdown editSexDropdown;
+    public Dropdown editJobDropdown;
+    public Button motifyBtn;
+
+    [Header("Ê∑ªÂä†Áî®Êà∑Áõ∏ÂÖ≥")]
     public InputField addIdInput;
     public InputField addUserNameInput;
     public InputField addPhoneInput;
     public InputField addPasswordInput;
     public Dropdown addSexDropDown;
     public Dropdown addJobDropDown;
-    public Button addResetBtn;
-    public Button addUserBtn;
+    public Button addBtn;
 
 
-    [Header("”√ªßœÍ«Èœ‡πÿ")]
-    public Transform detailContent;
-    public Button backBtn;
-    public InputField detailIdInput;
-    public InputField detailNameInput;
-    public InputField detailPhoneInput;
-    public InputField detailPasswordInput;
-    public Dropdown detailSexDropdown;
-    public Dropdown detailJobDropdown;
-    public Button detailMotifyBtn;
-    public Button detailDeleteBtn;
+
    
-    public void ResetSearch()
+    public void ResetSearchPanel()
     {
         idInput.text = "";
         userNameInput.text = "";
@@ -52,92 +51,107 @@ public class UserControlView : MonoBehaviour
         jobDropDown.value = 0;
     }
 
-    public void AddItem(string id,string name,User.UserJob job)
+
+    public void ClearSearchResult()
     {
-       
-        GameObject item = Instantiate(scrollViewItemPrefab, scrollViewContent);
 
-        Text idText = item.transform.GetChild(0).GetChild(0).GetComponent<Text>();
-        Text nameText = item.transform.GetChild(1).GetChild(0).GetComponent<Text>();
-        Text jobText = item.transform.GetChild(2).GetChild(0).GetComponent<Text>();
-
-        Button detailBtn = item.transform.GetChild(3).GetComponent<Button>();
-
-
-        idText.text = id;
-        nameText.text = name;
-        switch (job)
+        foreach (string key in searchResultDir.Keys)
         {
-            case User.UserJob.None: jobText.text = "Œﬁ";break;
-            case User.UserJob.Admin: jobText.text = "∞≤ºÏπ‹¿Ì‘±";break;
-            case User.UserJob.Member: jobText.text = "∞≤ºÏ‘±";break;
-            case User.UserJob.SysAdmin: jobText.text = "œµÕ≥π‹¿Ì‘±";break;
+            DestroyImmediate(searchResultDir[key]);
+         
         }
+        searchResultDir.Clear();
+    }
+
+    public void AddSearchResultItem(User user)
+    {
+
+        GameObject item = Instantiate(searchResultPrefab, searchResultContent);
+
+        Text idText = item.transform.GetChild(0).GetComponent<Text>();
+        Text nameText = item.transform.GetChild(1).GetComponent<Text>();
+        Text jobText = item.transform.GetChild(2).GetComponent<Text>();
+
+        Button editBtn = item.transform.GetChild(3).GetComponent<Button>();
+        Button deleteBtn = item.transform.GetChild(4).GetComponent<Button>();
 
 
-        detailBtn.onClick.AddListener(() => onClickDetailBtn(id));
+        idText.text = user.userId;
+        nameText.text = user.userName;
+        jobText.text = user.JobToChinese(user.userJob);
+
+        editBtn.onClick.AddListener(() => onClickEditBtn(user));
+        deleteBtn.onClick.AddListener(() => onClickDelteBtn(user.userId));
+
+        searchResultDir[user.userId] = item;
 
     }
 
-    public void ClearScrollView()
+    public void RemoveSearchResultItem(string userId)
     {
-        for(int i = 0;i< scrollViewContent.childCount; i++)
-        {
-            GameObject.Destroy(scrollViewContent.GetChild(i).gameObject);
-        }
-        
+        GameObject obj = searchResultDir[userId];
+        searchResultDir.Remove(userId);
+        DestroyImmediate(obj);
     }
 
-    public void onClickDetailBtn(string userId)
-    {
-        Debug.Log("œ‘ æœÍ«È");
-        SetDetailContent(userId);
-        ShowDetailContent();
-    }
 
-    public void ShowDetailContent()
-    {
-        detailContent.SetAsLastSibling();
-    }
 
-    public void HideDetailContent()
+    public void onClickEditBtn(User user)
     {
-        ClearScrollView();
-        detailContent.SetAsFirstSibling();
-    }
+        editIdInput.text = user.userId;
+        editNameInput.text = user.userName;
 
-    public void SetDetailContent(string userId)
-    {
-        User user = UserDatabaseMgr.Instance.GetUserDataById(userId);
-        detailIdInput.text = user.userId;
-        detailNameInput.text = user.userName;
-        detailPhoneInput.text = user.phone;
-        detailPasswordInput.text = user.password;
         switch (user.sex)
         {
-            case "ƒ–": detailJobDropdown.value = 0;break;
-            case "≈Æ": detailJobDropdown.value = 1;break;
+            case "Áî∑":
+                editSexDropdown.value = 0;
+                break;
+            case "Â•≥":
+                editSexDropdown.value = 1;
+                break;
         }
+
         switch (user.userJob)
         {
-            case User.UserJob.Member: detailJobDropdown.value = 0; break;
-            case User.UserJob.Admin: detailJobDropdown.value = 1; break;
-            case User.UserJob.SysAdmin: detailJobDropdown.value = 2; break;
+            case User.UserJob.Member:
+                editJobDropdown.value = 0;
+                break;
+            case User.UserJob.Admin:
+                editJobDropdown.value = 1;
+                break;
+            case User.UserJob.SysAdmin:
+                editJobDropdown.value = 2;
+                break;
         }
+
+        editPasswordInput.text = user.password;
+        editPhoneInput.text = user.phone;
 
     }
 
-    public void ResetAdd()
+
+   
+    public void onClickDelteBtn(string id)
+    {
+        UserDatabaseMgr.Instance.DeleteUserData(id);
+        RemoveSearchResultItem(id);
+        MessageBoxMgr.Instance.ShowInfo("Âà†Èô§Áî®Êà∑ÊàêÂäü");
+    }
+
+
+
+    public void ResetAddPanel()
     {
         addIdInput.text = "";
         addUserNameInput.text = "";
-        addPasswordInput.text = "";
-        addPhoneInput.text = "";
         addSexDropDown.value = 0;
         addJobDropDown.value = 0;
+        addPasswordInput.text = "";
+        addPhoneInput.text = "";
     }
-    
-    
+   
+
+
         
     
 }

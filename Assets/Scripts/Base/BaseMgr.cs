@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// »ù´¡¹ÜÀíÀà£¬ÓÃÓÚ¹ÜÀí»ù±¾µÄÊı¾İºÍUI½çÃæ
+/// åŸºç¡€ç®¡ç†ç±»ï¼Œç”¨äºç®¡ç†åŸºæœ¬çš„æ•°æ®å’ŒUIç•Œé¢
 /// </summary>
 public class BaseMgr : MonoBehaviour
 {
 
-    // ÊµÏÖµ¥ÀıÄ£Ê½·ÃÎÊÊı¾İ¿â
+    // å®ç°å•ä¾‹æ¨¡å¼è®¿é—®æ•°æ®åº“
     private static BaseMgr instance;
     public static BaseMgr Instance
     {
@@ -46,7 +46,7 @@ public class BaseMgr : MonoBehaviour
 
 
     /// <summary>
-    /// Ìí¼ÓÊÂ¼ş´¦Àí
+    /// æ·»åŠ äº‹ä»¶å¤„ç†
     /// </summary>
     private void AddEventHander()
     {
@@ -55,15 +55,19 @@ public class BaseMgr : MonoBehaviour
         data.AddEventListener("updateContentEvent", UpdateContentPanel);
         data.AddEventListener("updateContentEvent", UpdateListBtnViewStyle);
 
-        //°ó¶¨°´Å¥ÊÂ¼ş
+        //ç»‘å®šæŒ‰é’®äº‹ä»¶
         view.businessControlBtn.onClick.AddListener(()=>OnClickListBtn(BaseData.ContentType.BusinessControl));
         view.selfInfoBtn.onClick.AddListener(() => OnClickListBtn(BaseData.ContentType.SelfInfo));
         view.userControlBtn.onClick.AddListener(() => OnClickListBtn(BaseData.ContentType.UserControl));
         view.infoControlBtn.onClick.AddListener(() => OnClickListBtn(BaseData.ContentType.InfoControl));
         view.toolControlBtn.onClick.AddListener(() => OnClickListBtn(BaseData.ContentType.ToolControl));
 
-        //µã»÷¸öÈËĞÅÏ¢Ãæ°å£¬Ë¢ĞÂÏÔÊ¾¸öÈËĞÅÏ¢
+        view.exitBtn.onClick.AddListener(ExitApp);
+
+        //ç‚¹å‡»ä¸ªäººä¿¡æ¯é¢æ¿ï¼Œåˆ·æ–°æ˜¾ç¤ºä¸ªäººä¿¡æ¯
         view.selfInfoBtn.onClick.AddListener(SelfInfoMgr.Instance.UpdateContent);
+
+        
     }
 
     public void UpdateUserPanel()
@@ -95,6 +99,11 @@ public class BaseMgr : MonoBehaviour
         
     }
 
+    public void ExitApp()
+    {
+        Application.Quit();
+    }
 
 
+    
 }

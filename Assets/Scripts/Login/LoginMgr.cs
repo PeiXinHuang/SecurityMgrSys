@@ -40,19 +40,22 @@ public class LoginMgr : MonoBehaviour
 
 
     /// <summary>
-    /// Ìí¼ÓÊÂ¼ş´¦Àí
+    /// æ·»åŠ äº‹ä»¶å¤„ç†
     /// </summary>
     private void AddEventHander()
     {
         view.loginBtn.onClick.AddListener(OnClickLoginBtn);
+        view.exitBtn.onClick.AddListener(ExitApp);
 
-        //µÇÂ¼³É¹¦£¬Òş²ØµÇÂ½½çÃæ,»ù´¡Ãæ°å¸ù¾İµÇÂ¼ÓÃ»§µÄÈ¨ÏŞ½øĞĞË¢ĞÂ,²¢ÇÒÏÔÊ¾µ±Ç°µÇÂ¼ÓÃ»§
-        //ÏêÇéÃæ°åÏÔÊ¾¸öÈËĞÅÏ¢£¬ÓÃ»§¸öÈËĞÅÏ¢Ãæ°åË¢ĞÂ
+        //ç™»å½•æˆåŠŸï¼Œéšè—ç™»é™†ç•Œé¢,åŸºç¡€é¢æ¿æ ¹æ®ç™»å½•ç”¨æˆ·çš„æƒé™è¿›è¡Œåˆ·æ–°,å¹¶ä¸”æ˜¾ç¤ºå½“å‰ç™»å½•ç”¨æˆ·
+        //è¯¦æƒ…é¢æ¿æ˜¾ç¤ºä¸ªäººä¿¡æ¯ï¼Œç”¨æˆ·ä¸ªäººä¿¡æ¯é¢æ¿åˆ·æ–°
         data.AddEventListener("loginSuccessEvent", LoginMgr.Instance.HideLoginPanel);
         data.AddEventListener("loginSuccessEvent", BaseMgr.Instance.UpdateUserPanel);
         data.AddEventListener("loginSuccessEvent", BaseMgr.Instance.UpdateListPanel);
         data.AddEventListener("loginSuccessEvent", BaseMgr.Instance.UpdateContentPanel);
         data.AddEventListener("loginSuccessEvent", SelfInfoMgr.Instance.UpdateContent);
+
+        
 
     }
 
@@ -72,5 +75,10 @@ public class LoginMgr : MonoBehaviour
     {
         view.HideLoginPanel();
    
+    }
+
+    public void ExitApp()
+    {
+        Application.Quit();
     }
 }
