@@ -329,16 +329,23 @@ public class UserDatabaseMgr : MonoBehaviour
     /// <returns></returns>
     public string GetNewUserId()
     {
+
+
         List<User> allUsers = GetUsersData(new User());
         int newUserId = 0;
         foreach (User user in allUsers)
         {
-            if (newUserId < int.Parse(user.userId))
+            int num;
+            bool hasGet = int.TryParse(user.userId, out num);
+            if (hasGet)
             {
-                newUserId = int.Parse(user.userId);
+                if(newUserId <= num)
+                {
+                    newUserId = num+1;
+                }
             }
         }
-        newUserId += 1;
+
         if (newUserId <= 0 || newUserId > 99999)
         {
             Debug.LogError("Fail to get new userId");
@@ -352,6 +359,7 @@ public class UserDatabaseMgr : MonoBehaviour
         {
             result += "0";
         }
+
         result += tempIdStr;
         return result;
     }

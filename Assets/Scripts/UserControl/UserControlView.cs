@@ -41,8 +41,11 @@ public class UserControlView : MonoBehaviour
     public Button addBtn;
 
 
+    public void UpdateAddUserId()
+    {
+        addIdInput.text = UserDatabaseMgr.Instance.GetNewUserId();
+    }
 
-   
     public void ResetSearchPanel()
     {
         idInput.text = "";
@@ -136,13 +139,13 @@ public class UserControlView : MonoBehaviour
         UserDatabaseMgr.Instance.DeleteUserData(id);
         RemoveSearchResultItem(id);
         MessageBoxMgr.Instance.ShowInfo("删除用户成功");
+        UpdateAddUserId();
     }
 
 
 
     public void ResetAddPanel()
     {
-        addIdInput.text = "";
         addUserNameInput.text = "";
         addSexDropDown.value = 0;
         addJobDropDown.value = 0;
@@ -152,6 +155,29 @@ public class UserControlView : MonoBehaviour
    
 
 
-        
-    
+    public void ResetAddUserPanel()
+    {
+        UpdateAddUserId();
+        ResetAddPanel();
+    }
+
+    public void ResetEditUserPanel()
+    {
+        editIdInput.text = "";
+        editNameInput.text = "";
+        editPasswordInput.text = "";
+        editPhoneInput.text = "";
+        editJobDropdown.value = 0;
+        editSexDropdown.value = 0;
+    }
+
+    public void ResetSearchUserPanel()
+    {
+        idInput.text = "";
+        userNameInput.text = "";
+        jobDropDown.value = 0;
+        sexDropDown.value = 0;
+        ClearSearchResult();
+    }
+
 }

@@ -129,6 +129,8 @@ public class UserControlData : Object
 
         UserDatabaseMgr.Instance.InsertUserData(addUser);
         MessageBoxMgr.Instance.ShowInfo("创建用户成功");
+        UserControlMgr.Instance.ResetAddUserPanel();
+
     }
     #endregion
 

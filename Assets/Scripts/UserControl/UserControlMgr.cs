@@ -84,6 +84,7 @@ public class UserControlMgr : MonoBehaviour
     {
         data.AddUser(view.addIdInput.text, view.addUserNameInput.text, view.addPhoneInput.text,
             view.addPasswordInput.text, view.addSexDropDown.value, view.addJobDropDown.value);
+
     }
 
     public void OnClickModifyBtn()
@@ -92,5 +93,25 @@ public class UserControlMgr : MonoBehaviour
             view.editPasswordInput.text, view.editSexDropdown.value, view.editJobDropdown.value);
     }
 
+    public void UpdateAddUserId()
+    {
+        view.UpdateAddUserId();
+    }
+
+    public void ResetAddUserPanel()
+    {
+        view.ResetAddUserPanel();
+        
+    }
+
+    public void ResetSearchUserPanel()
+    {
+        view.ResetSearchUserPanel();
+    }
+
+    public void ResetEditUserPanel()
+    {
+        view.ResetEditUserPanel();
+    }
 }
 

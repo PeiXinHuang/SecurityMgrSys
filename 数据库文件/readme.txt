@@ -1,0 +1,1 @@
+导入sql文件到mysql后unity才可以访问数据库

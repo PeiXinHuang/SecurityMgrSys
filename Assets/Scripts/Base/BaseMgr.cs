@@ -67,6 +67,10 @@ public class BaseMgr : MonoBehaviour
         //点击个人信息面板，刷新显示个人信息
         view.selfInfoBtn.onClick.AddListener(SelfInfoMgr.Instance.UpdateContent);
 
+        //点击用户管理按钮，刷新添加用户管理面板
+        view.userControlBtn.onClick.AddListener(UserControlMgr.Instance.ResetAddUserPanel);
+        view.userControlBtn.onClick.AddListener(UserControlMgr.Instance.ResetEditUserPanel);
+        view.userControlBtn.onClick.AddListener(UserControlMgr.Instance.ResetSearchUserPanel);
         
     }
 
