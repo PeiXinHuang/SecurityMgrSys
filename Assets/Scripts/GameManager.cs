@@ -84,7 +84,7 @@ public class GameManager : MonoBehaviour
         BaseMgr baseMgr = BaseMgr.Instance; //基础界面管理器
         LoginMgr loginMgr = LoginMgr.Instance; //登录界面管理器
         UserControlMgr userControlMgr = UserControlMgr.Instance; //用户管理管理器
-
+        InfoControlMgr infoContriolMgr = InfoControlMgr.Instance; //信息管理管理器 
 
 
         //第一次打开，显示登录面板

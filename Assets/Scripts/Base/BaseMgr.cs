@@ -71,7 +71,10 @@ public class BaseMgr : MonoBehaviour
         view.userControlBtn.onClick.AddListener(UserControlMgr.Instance.ResetAddUserPanel);
         view.userControlBtn.onClick.AddListener(UserControlMgr.Instance.ResetEditUserPanel);
         view.userControlBtn.onClick.AddListener(UserControlMgr.Instance.ResetSearchUserPanel);
-        
+
+        //点击信息管理，刷新信息管理界面，刷新加载发送信息的收件人
+        view.infoControlBtn.onClick.AddListener(InfoControlMgr.Instance.ResetPanel);
+        view.infoControlBtn.onClick.AddListener(InfoControlMgr.Instance.UpdateSendUserDropdown);
     }
 
     public void UpdateUserPanel()
