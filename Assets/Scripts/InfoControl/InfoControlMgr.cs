@@ -41,10 +41,13 @@ public class InfoControlMgr : MonoBehaviour
     private void AddEventHander()
     {
         view.sendButton.onClick.AddListener(onClickSendButton);
+        view.sendDropdown.onValueChanged.AddListener(OnSendDropdownValueChanged);
+
+        //发送完信息，重置发送消息窗口
+        data.AddEventListener("sendInfoEvent", view.ResetSendPanel);
+        data.AddEventListener("updateCanSendUsers", UpdateViewSendDropdown);
 
 
-        data.AddEventListener("sendEventEvent", view.ResetSendPanel);
-        data.AddEventListener("updateCanSendUsers", view.UpdateSendDropDown);
     }
 
     private void onClickSendButton()
@@ -55,15 +58,46 @@ public class InfoControlMgr : MonoBehaviour
     public void ResetPanel()
     {
         view.ResetSendPanel();
+        view.ResetReceivePanel();
     }
 
+    /// <summary>
+    /// 刷新下拉列表数据
+    /// </summary>
     public void UpdateSendUserDropdown()
     {
-        data.UpdateAllCanSendUsers();
+        data.UpdateAllCanReceiveUsers();
     }
 
+    /// <summary>
+    /// 刷新下拉列表视图
+    /// </summary>
     public void UpdateViewSendDropdown()
     {
-        
+        List<string> dropdownList = new List<string>();
+        dropdownList.Add("None");
+        dropdownList.Add("All");
+
+        foreach (string key in data.receiveUserDir.Keys)
+        {
+            dropdownList.Add(key + " " + data.receiveUserDir[key]);
+        }
+
+        view.UpdateSendDropDown(dropdownList);
+    }
+
+    private void OnSendDropdownValueChanged(int value)
+    {
+        string dropdownText = view.sendDropdown.options[value].text;
+       
+        string sendId = dropdownText.Split(' ')[0];
+
+
+        data.UpdateReceiveIds(sendId);
+    }
+
+    public void UpdateViewSendInput(string str)
+    {
+        view.sendUserInput.text = str;
     }
 }

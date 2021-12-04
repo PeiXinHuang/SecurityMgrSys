@@ -31,7 +31,7 @@ public class BaseView : MonoBehaviour
     public Image userControlContent;
     public Image businessControlContent;
     public Image infoControlContent;
-
+    public Image toolControlContent;
 
     
 
@@ -138,6 +138,9 @@ public class BaseView : MonoBehaviour
                 break;
             case BaseData.ContentType.InfoControl:
                 infoControlContent.rectTransform.SetAsLastSibling();
+                break;
+            case BaseData.ContentType.ToolControl:
+                toolControlContent.rectTransform.SetAsLastSibling();
                 break;
             default:
                 break;

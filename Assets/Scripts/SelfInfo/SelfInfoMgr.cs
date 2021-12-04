@@ -70,4 +70,7 @@ public class SelfInfoMgr : MonoBehaviour
     {
         view.UpdateContent(GameManager.Instance.GetCurrentUser());
     }
+
+
+
 }

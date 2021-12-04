@@ -6,27 +6,32 @@ using UnityEngine.Events;
 public class InfoControlData : Object
 {
 
-    private event UnityAction SendEventEvent;
-    private event UnityAction UpdateCanSendUsers;
-    private event UnityAction UpdateSendUsers;
+    private event UnityAction SendInfoEvent;
+    private event UnityAction UpdateCanReceiveUsers;
 
     public void AddEventListener(string eventName, UnityAction function)
     {
-        if (eventName == "sendEventEvent")
-            SendEventEvent += function;
+        if (eventName == "sendInfoEvent")
+            SendInfoEvent += function;
+        else if (eventName == "updateCanSendUsers")
+            UpdateCanReceiveUsers += function;
         else
             Debug.LogWarning("Event: " + eventName + " is not exit");
     }
     public void RemoveEventListener(string eventName, UnityAction function)
     {
-        if (eventName == "sendEventEvent")
-            SendEventEvent -= function;
+        if (eventName == "sendInfoEvent")
+            SendInfoEvent -= function;
+        else if (eventName == "updateCanSendUsers")
+            UpdateCanReceiveUsers -= function;
         else
             Debug.LogWarning("Event: " + eventName + " is not exit");
     }
 
+
+    #region 发送信息相关
     //发送用户
-    public Dictionary<string, string> sendUserDir = new Dictionary<string, string>();
+    public Dictionary<string, string> receiveUserDir = new Dictionary<string, string>();
 
     public void SendInfo(string sendTitle, string sendContent)
     {
@@ -42,40 +47,79 @@ public class InfoControlData : Object
             return;
         }
 
-        if(sendUserDir.Keys.Count == 0)
+        if(receiveUserDir.Keys.Count == 0)
         {
             MessageBoxMgr.Instance.ShowWarnning("收件人不能为空");
             return;
         }
 
-        List<string> receiveIds = new List<string>();
-        foreach (string key in sendUserDir.Keys)
-        {
-            receiveIds.Add(key);
-        }
+       
 
         InfoDatabaseMgr.Instance.CreateNewInfos(GameManager.Instance.GetCurrentUser().userId,
             receiveIds, sendTitle, sendContent);
 
-        if (SendEventEvent != null)
-            SendEventEvent();
+        if (SendInfoEvent != null)
+            SendInfoEvent();
 
         MessageBoxMgr.Instance.ShowInfo("发送信息成功");
     }
 
     
 
-    public void UpdateAllCanSendUsers()
+    public void UpdateAllCanReceiveUsers()
     {
-        sendUserDir.Clear();
+        receiveUserDir.Clear();
         List<User> users = UserDatabaseMgr.Instance.GetUsersData(new User());
         foreach (User user in users)
         {
-            sendUserDir.Add(user.userId, user.userName);
+            if(user.userId != GameManager.Instance.GetCurrentUser().userId) //不能发送消息给自己
+                receiveUserDir.Add(user.userId, user.userName);
         }
 
-        if (UpdateCanSendUsers != null)
-            UpdateCanSendUsers();
+        if (UpdateCanReceiveUsers != null)
+            UpdateCanReceiveUsers();
     }
 
+
+    List<string> receiveIds = new List<string>();
+    public void UpdateReceiveIds(string receiveId)
+    {
+   
+        if (receiveId == "None")
+        {
+            receiveIds.Clear();
+        }
+        else if (receiveId == "All")
+        {
+            receiveIds.Clear();
+            foreach (string item in receiveUserDir.Keys)
+            {
+                receiveIds.Add(item);
+            }
+        }
+        else
+        {
+        
+            bool canGet = receiveUserDir.ContainsKey(receiveId);
+            if (canGet)
+            {
+                if (!receiveIds.Contains(receiveId))
+                    receiveIds.Add(receiveId);
+            }
+            else
+            {
+                Debug.LogError("找不到发送用户：" + receiveId);
+            }
+        }
+
+        string receiveStr = "";
+        foreach (string item in receiveIds)
+        {
+            receiveStr += string.Format("{0}({1}) / ", item, receiveUserDir[item]);
+        }
+
+
+        InfoControlMgr.Instance.UpdateViewSendInput(receiveStr);
+    }
+    #endregion
 }

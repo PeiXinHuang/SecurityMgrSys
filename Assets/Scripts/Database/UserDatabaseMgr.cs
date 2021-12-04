@@ -19,7 +19,7 @@ public class UserDatabaseMgr : MonoBehaviour
     public string port = "3306"; // 端口号
     public string charSet = "utf8"; // 编码格式
 
-    private MySqlConnection conn; //数据库连接对象
+    public MySqlConnection conn; //数据库连接对象
 
     // 实现单例模式访问数据库
     private static UserDatabaseMgr instance;
@@ -192,7 +192,7 @@ public class UserDatabaseMgr : MonoBehaviour
         catch (System.Exception e)
         {
 
-            Debug.Log("ChargeUserExit fail:" + e.ToString());
+            Debug.LogError("getUserById fail:" + e.ToString());
         }
         finally
         {
@@ -272,7 +272,7 @@ public class UserDatabaseMgr : MonoBehaviour
         }
         catch (System.Exception e)
         {
-            Debug.Log("GetUsersData fail:" + e.ToString());
+            Debug.LogError("GetUsersData fail:" + e.ToString());
         }
         finally
         {
@@ -312,7 +312,7 @@ public class UserDatabaseMgr : MonoBehaviour
         catch (System.Exception e)
         {
 
-            Debug.Log("ChargeUserExit fail:" + e.ToString());
+            Debug.LogError("ChargeUserExit fail:" + e.ToString());
         }
         finally
         {
@@ -348,7 +348,7 @@ public class UserDatabaseMgr : MonoBehaviour
 
         if (newUserId <= 0 || newUserId > 99999)
         {
-            Debug.LogError("Fail to get new userId");
+            Debug.LogError("Fail to get new userId :" + newUserId);
             return "";
         }
 

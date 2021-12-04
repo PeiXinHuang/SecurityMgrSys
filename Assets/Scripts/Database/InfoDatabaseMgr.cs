@@ -13,7 +13,7 @@ public class InfoDatabaseMgr : MonoBehaviour
     public string port = "3306"; // 端口号
     public string charSet = "utf8"; // 编码格式
 
-    private MySqlConnection conn; //数据库连接对象
+    private MySqlConnection conn; //数据库连接对象 //数据库连接对象错误
 
     // 实现单例模式访问数据库
     private static InfoDatabaseMgr instance;
@@ -99,14 +99,19 @@ public class InfoDatabaseMgr : MonoBehaviour
         List<Info> infos = new List<Info>();
         try
         {
+
             conn.Open();
 
             string sql = string.Format("select * from info where receiveId = '{0}'", id); //查询语句
 
+
+
+            Debug.Log("search sql: " + sql);
+
+
             //执行查询语句，并将查询到的数据返回到reader中
             MySqlCommand command = new MySqlCommand(sql, conn);
             MySqlDataReader reader = command.ExecuteReader();
-            Debug.Log("search sql: " + sql);
 
             while (reader.Read())
             {
@@ -124,8 +129,7 @@ public class InfoDatabaseMgr : MonoBehaviour
         }
         catch (System.Exception e)
         {
-
-            Debug.Log("Get Info fail:" + e.ToString());
+            Debug.LogError("Get Info fail:" + e.ToString());
         }
         finally
         {
