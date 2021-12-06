@@ -59,6 +59,7 @@ public class InfoControlMgr : MonoBehaviour
     {
         view.ResetSendPanel();
         view.ResetReceivePanel();
+        view.ResetHistroyPanel();
     }
 
     /// <summary>

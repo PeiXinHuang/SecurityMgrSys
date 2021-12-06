@@ -65,7 +65,7 @@ public class InfoDatabaseMgr : MonoBehaviour
             //执行查询语句，并将查询到的数据返回到reader中
             MySqlCommand command = new MySqlCommand(sql, conn);
             MySqlDataReader reader = command.ExecuteReader();
-            Debug.Log("search sql: " + sql);
+  
 
             while(reader.Read())
             {
@@ -104,11 +104,6 @@ public class InfoDatabaseMgr : MonoBehaviour
 
             string sql = string.Format("select * from info where receiveId = '{0}'", id); //查询语句
 
-
-
-            Debug.Log("search sql: " + sql);
-
-
             //执行查询语句，并将查询到的数据返回到reader中
             MySqlCommand command = new MySqlCommand(sql, conn);
             MySqlDataReader reader = command.ExecuteReader();
@@ -139,6 +134,8 @@ public class InfoDatabaseMgr : MonoBehaviour
         return infos;
     }
 
+
+
     public void CreateNewInfos(string sendId,List<string> receiveIds,string infoTitle,string infoContent)
     {
         try
@@ -151,7 +148,7 @@ public class InfoDatabaseMgr : MonoBehaviour
                 string sql = string.Format("insert into info(sendId,receiveId,infoTitle,infoContent)" +
                     " values('{0}','{1}','{2}','{3}')", sendId, receiveId, infoTitle, infoContent);
 
-                Debug.Log("insert sql: " + sql);
+               
                 //执行插入语句
                 MySqlCommand command = conn.CreateCommand();
                 command.CommandText = sql;
@@ -180,8 +177,7 @@ public class InfoDatabaseMgr : MonoBehaviour
 
             //数据库删除语句
             string sql = string.Format("delete from info where infoId = '{0}'", id);
-            Debug.Log("delete sql is :" + sql);
-
+            
             //执行删除语句
             MySqlCommand command = conn.CreateCommand();
             command.CommandText = sql;

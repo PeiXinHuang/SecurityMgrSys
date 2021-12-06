@@ -104,8 +104,7 @@ public class UserDatabaseMgr : MonoBehaviour
 
             //数据库删除语句
             string sql = string.Format("delete from user where userId = '{0}'", userId);
-            Debug.Log("delete sql is :" + sql);
-
+          
             //执行删除语句
             MySqlCommand command = conn.CreateCommand();
             command.CommandText = sql;
@@ -246,7 +245,6 @@ public class UserDatabaseMgr : MonoBehaviour
 
 
 
-        Debug.Log(" searchSql is " + sql);
 
         try
         {
