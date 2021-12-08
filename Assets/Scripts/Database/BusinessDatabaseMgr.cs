@@ -53,4 +53,13 @@ public class BusinessDatabaseMgr : MonoBehaviour
 
     }
 
+
+    /// <summary>
+    /// 获取所有安检业务
+    /// </summary>
+    public List<Business> GetAllBusinesses()
+    {
+        List<Business> businesses = new List<Business>();
+        return businesses;
+    }
 }

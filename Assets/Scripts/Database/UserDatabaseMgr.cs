@@ -73,7 +73,6 @@ public class UserDatabaseMgr : MonoBehaviour
                 "phone) values('{0}','{1}','{2}','{3}','{4}','{5}')",user.userId,user.JobToString(user.userJob),
                 user.userName,user.sex,user.password,user.phone);
 
-            Debug.Log("insert sql: " + sql);
             //执行插入语句
             MySqlCommand command = conn.CreateCommand();
             command.CommandText = sql;

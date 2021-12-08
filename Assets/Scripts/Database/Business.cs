@@ -8,8 +8,8 @@ using UnityEngine;
 public class Business : Object
 {
     public string adminUserId; //负责的安检管理员Id
-    public List<string> memberUsersId; //参与的安检员Id
-    public List<string> tools; //安检需要工具
-
+    public string memberUserId; //参与的安检员Id
+    public string tools; //安检需要工具
+    
 
 }

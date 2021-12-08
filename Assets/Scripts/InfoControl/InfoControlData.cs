@@ -47,7 +47,8 @@ public class InfoControlData : Object
             return;
         }
 
-        if(receiveUserDir.Keys.Count == 0)
+      
+        if (receiveIds.Count == 0)
         {
             MessageBoxMgr.Instance.ShowWarnning("收件人不能为空");
             return;
