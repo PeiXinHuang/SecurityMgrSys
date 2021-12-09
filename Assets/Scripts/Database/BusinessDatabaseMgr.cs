@@ -60,6 +60,86 @@ public class BusinessDatabaseMgr : MonoBehaviour
     public List<Business> GetAllBusinesses()
     {
         List<Business> businesses = new List<Business>();
+        try
+        {
+            conn.Open();
+
+            string sql = string.Format("select * from business"); //查询语句
+
+            //执行查询语句，并将查询到的数据返回到reader中
+            MySqlCommand command = new MySqlCommand(sql, conn);
+            MySqlDataReader reader = command.ExecuteReader();
+
+            while (reader.Read())
+            {
+                Business business = new Business();
+                business.id = reader[0].ToString();
+                business.title = reader[1].ToString();
+                business.content = reader[2].ToString();
+                business.adminUserId = reader[3].ToString();
+                business.memberUserId = reader[4].ToString();
+                business.tools = reader[5].ToString();
+                business.pdfName = reader[6].ToString();
+                switch (reader[7].ToString())
+                {
+                    case "0":
+                        business.state = Business.State.Doing;
+                        break;
+                    case "1":
+                        business.state = Business.State.Check;
+                        break;
+                    case "2":
+                        business.state = Business.State.Back;
+                        break;
+                    case "3":
+                        business.state = Business.State.Finish;
+                        break;
+                }
+
+                businesses.Add(business);
+
+            }
+
+
+
+        }
+        catch (System.Exception e)
+        {
+
+            Debug.LogError("GetBusiness all data fail:" + e.ToString());
+        }
+        finally
+        {
+            conn.Close();
+        }
+
         return businesses;
+    }
+
+    public void DeleteBusinessById(string id)
+    {
+        try
+        {
+            conn.Open();
+
+            //数据库删除语句
+            string sql = string.Format("delete from business where id = '{0}'", id);
+
+            //执行删除语句
+            MySqlCommand command = conn.CreateCommand();
+            command.CommandText = sql;
+            command.ExecuteNonQuery();
+
+
+        }
+        catch (System.Exception e)
+        {
+            Debug.LogError("删除业务数据失败 " + e.ToString());
+        }
+        finally
+        {
+            conn.Close();
+        }
+
     }
 }

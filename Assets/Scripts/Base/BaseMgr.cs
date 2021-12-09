@@ -62,7 +62,7 @@ public class BaseMgr : MonoBehaviour
         view.infoControlBtn.onClick.AddListener(() => OnClickListBtn(BaseData.ContentType.InfoControl));
         view.toolControlBtn.onClick.AddListener(() => OnClickListBtn(BaseData.ContentType.ToolControl));
 
-        view.exitBtn.onClick.AddListener(ExitApp);
+        view.exitBtn.onClick.AddListener(ExitToLogin);
 
         //点击个人信息面板，刷新显示个人信息
         view.selfInfoBtn.onClick.AddListener(SelfInfoMgr.Instance.UpdateContent);
@@ -111,11 +111,14 @@ public class BaseMgr : MonoBehaviour
         
     }
 
-    public void ExitApp()
+    public void ExitToLogin()
     {
-        Application.Quit();
+        
+        LoginMgr.Instance.ShowLoginPanel(); //切回到登录界面
+        data.SetCurrentSelectContent(BaseData.ContentType.SelfInfo); //切回到个人界面，在登录界面下面
+
     }
 
 
-    
+
 }

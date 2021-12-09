@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class BusinessControlMgr : MonoBehaviour
 {    
-    // 实现单例模式
+    // 瀹炵幇鍗曚緥妯″紡
     private static BusinessControlMgr instance;
     public static BusinessControlMgr Instance
     {
@@ -42,15 +42,19 @@ public class BusinessControlMgr : MonoBehaviour
 
     private void AddEventHander()
     {
-        //throw new NotImplementedException();
+        view.sysCheckPDFBtn.onClick.AddListener(() => view.ShowPDFView(data.currentSelectPdfName));
+        view.sysDelBusinessBtn.onClick.AddListener(DeleteCurrentBusiness);
     }
 
 
     public void ResetPanel()
     {
+        data.currentSelectPdfName = string.Empty;
+        data.currentSelectBusinessId = string.Empty;
+
         view.ShowBusinessPanel();
 
-        // 根据用户状态显示对应的界面
+        // 鏍规嵁鐢ㄦ埛鐘舵�佹樉绀哄搴旂殑鐣岄潰
         switch (GameManager.Instance.GetCurrentUser().userJob)
         {
             case User.UserJob.SysAdmin:
@@ -65,4 +69,18 @@ public class BusinessControlMgr : MonoBehaviour
         }
     }
 
+
+    public void SetCurrentBusiness(string id, string name)
+    {
+        data.currentSelectBusinessId = id;
+        data.currentSelectPdfName = name;
+
+       
+    }
+
+    public void DeleteCurrentBusiness()
+    {
+        data.DeleteCurrentSelectBusiness();
+        ResetPanel();
+    }
 }

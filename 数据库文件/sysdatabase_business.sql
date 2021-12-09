@@ -23,14 +23,16 @@ DROP TABLE IF EXISTS `business`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `business` (
-  `idbusiness` int NOT NULL AUTO_INCREMENT,
-  `businessName` varchar(45) COLLATE utf8_bin NOT NULL,
-  `businessMember` varchar(45) COLLATE utf8_bin NOT NULL,
-  `businessAdmin` varchar(45) COLLATE utf8_bin NOT NULL,
-  `businessDes` varchar(250) COLLATE utf8_bin NOT NULL,
-  `businessType` int NOT NULL,
-  PRIMARY KEY (`idbusiness`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+  `id` int NOT NULL AUTO_INCREMENT,
+  `title` varchar(45) COLLATE utf8_bin NOT NULL,
+  `content` varchar(45) COLLATE utf8_bin NOT NULL,
+  `adminUserId` varchar(45) COLLATE utf8_bin NOT NULL,
+  `memberUserId` varchar(250) COLLATE utf8_bin NOT NULL,
+  `tools` varchar(45) COLLATE utf8_bin DEFAULT NULL,
+  `pdfName` varchar(45) COLLATE utf8_bin DEFAULT NULL,
+  `state` int NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -39,6 +41,7 @@ CREATE TABLE `business` (
 
 LOCK TABLES `business` WRITE;
 /*!40000 ALTER TABLE `business` DISABLE KEYS */;
+INSERT INTO `business` VALUES (1,'地铁安检','检查地铁的消防工作进度','00003','00014',NULL,'TextPDF.pdf',0);
 /*!40000 ALTER TABLE `business` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -51,4 +54,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-12-06 22:43:23
+-- Dump completed on 2021-12-09 23:05:58

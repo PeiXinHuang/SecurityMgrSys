@@ -61,7 +61,9 @@ namespace Paroxe.PdfRenderer
         private float m_StartZoom;
         private float m_UpdateChangeDelay;
 #if !UNITY_WEBGL || UNITY_EDITOR
+#pragma warning disable CS0618 // 类型或成员已过时
         private WWW m_WWW;
+#pragma warning restore CS0618 // 类型或成员已过时
 #endif
         private Vector2 m_ZoomPosition = Vector2.zero;
         private PDFRenderer m_Renderer;
@@ -1682,7 +1684,9 @@ namespace Paroxe.PdfRenderer
             m_Internal.m_ProgressRect.sizeDelta = new Vector2(0.0f, m_Internal.m_ProgressRect.sizeDelta.y);
             m_Internal.m_ProgressLabel.text = "0%";
 
+#pragma warning disable CS0618 // 类型或成员已过时
             m_WWW = new WWW(GetFileLocation());
+#pragma warning restore CS0618 // 类型或成员已过时
 
             yield return m_WWW;
 

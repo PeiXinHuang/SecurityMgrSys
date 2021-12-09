@@ -6,10 +6,10 @@ using UnityEngine.UI;
 
 public class BusinessControlView : MonoBehaviour
 {
-    [Header("°²¼ìÒµÎñÏà¹Ø")]
+    [Header("å®‰æ£€ä¸šåŠ¡ç›¸å…³")]
     public Image businessPanel;
 
-    [Header("ÏµÍ³¹ÜÀíÔ±°²¼ìÒµÎñ¹ÜÀí½çÃæÏà¹Ø")]
+    [Header("ç³»ç»Ÿç®¡ç†å‘˜å®‰æ£€ä¸šåŠ¡ç®¡ç†ç•Œé¢ç›¸å…³")]
     public Image sysBusinessPanel;
     public RectTransform sysScrollTran;
     public GameObject sysItemPrefab;
@@ -22,15 +22,15 @@ public class BusinessControlView : MonoBehaviour
     public Button sysDelBusinessBtn;
 
 
-    [Header("°²¼ì¹ÜÀíÔ±°²¼ìÒµÎñ¹ÜÀí½çÃæÏà¹Ø")]
+    [Header("å®‰æ£€ç®¡ç†å‘˜å®‰æ£€ä¸šåŠ¡ç®¡ç†ç•Œé¢ç›¸å…³")]
     public Image adminBusinessPanel;
 
 
-    [Header("°²¼ìÔ±°²¼ìÒµÎñ¹ÜÀí½çÃæÏà¹Ø")]
+    [Header("å®‰æ£€å‘˜å®‰æ£€ä¸šåŠ¡ç®¡ç†ç•Œé¢ç›¸å…³")]
     public Image memberBusinessPanel;
     
 
-    [Header("PDFÔ¤ÀÀ½çÃæÏà¹Ø")]
+    [Header("PDFé¢„è§ˆç•Œé¢ç›¸å…³")]
     public Image pdfPanel;
     public PDFViewer pdfViewer;
     public Button closePDFBtn;
@@ -44,12 +44,19 @@ public class BusinessControlView : MonoBehaviour
 
     public void ShowPDFView(string pdfName)
     {
+        if(string.IsNullOrEmpty(pdfName))
+        {
+            MessageBoxMgr.Instance.ShowWarnning("å½“å‰æ²¡æœ‰é€‰ä¸­å®‰æ£€ä¸šåŠ¡");
+            return;
+        }
+
         pdfPanel.transform.SetAsLastSibling();
         pdfViewer.FileName = pdfName;
     }
 
     public void ResetBusinessControlPanel()
     {
+
         ShowBusinessPanel();
     }
 
@@ -71,14 +78,34 @@ public class BusinessControlView : MonoBehaviour
 
         foreach (Business business in businesses)
         {
-            //ÊµÀý»¯Prefab
+            //å®žä¾‹åŒ–Prefab
+            GameObject newItem = Instantiate(sysItemPrefab, sysScrollTran);
+            string id = business.id;
+            string title = business.title;
+            string content = business.content;
+            string memberUserId = business.memberUserId;
+            string pdfName = business.pdfName;
+            Business.State state = business.state;
+
+            string memberName = UserDatabaseMgr.Instance.GetUserDataById(memberUserId).userName;
+
+            if (string.IsNullOrEmpty(memberName))
+                memberName = "å·²æ³¨é”€";
+            newItem.transform.GetChild(0).GetComponent<Text>().text = string.Format("{0}({1})",title, memberName);
+            Button clickBtn = newItem.GetComponent<Button>();
+            clickBtn.onClick.AddListener(() => ShowSysBusinessContent(id,title,content, memberName, pdfName));
         }
 
     }
 
-    public void ShowSysBusinessContent(string title,string content, string name,string state)
+    public void ShowSysBusinessContent(string id, string title,string content, string name,string pdfName)
     {
+        sysTitle.text = title;
+        sysContent.text = content;
+        sysName.text = name;
 
+        BusinessControlMgr.Instance.SetCurrentBusiness(id,pdfName);
+     
     }
 
 

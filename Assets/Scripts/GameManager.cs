@@ -81,8 +81,8 @@ public class GameManager : MonoBehaviour
     {
 
         //创建基础对象
-        BaseMgr baseMgr = BaseMgr.Instance; //基础界面管理器
         LoginMgr loginMgr = LoginMgr.Instance; //登录界面管理器
+        BaseMgr baseMgr = BaseMgr.Instance; //基础界面管理器
         UserControlMgr userControlMgr = UserControlMgr.Instance; //用户管理管理器
         InfoControlMgr infoContriolMgr = InfoControlMgr.Instance; //信息管理管理器 
         BusinessControlMgr businessControlMgr = BusinessControlMgr.Instance; //安检业务管理管理器 

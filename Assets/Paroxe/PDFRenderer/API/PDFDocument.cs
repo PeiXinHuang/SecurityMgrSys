@@ -51,7 +51,9 @@ namespace Paroxe.PdfRenderer
 
             string url = urlString as string;
 
-            WWW www = new WWW(url);
+#pragma warning disable CS0618 // 类型或成员已过时
+            WWW www = NewMethod(url);
+#pragma warning restore CS0618 // 类型或成员已过时
 
             yield return www;
 
@@ -71,6 +73,15 @@ namespace Paroxe.PdfRenderer
 
                 promiseCoroutine.ExecuteThenAction(false, null);
             }
+        }
+
+#pragma warning disable CS0618 // 类型或成员已过时
+        private static WWW NewMethod(string url)
+#pragma warning restore CS0618 // 类型或成员已过时
+        {
+#pragma warning disable CS0618 // 类型或成员已过时
+            return new WWW(url);
+#pragma warning restore CS0618 // 类型或成员已过时
         }
 #endif
 
