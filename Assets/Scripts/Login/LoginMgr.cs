@@ -48,14 +48,16 @@ public class LoginMgr : MonoBehaviour
         view.exitBtn.onClick.AddListener(ExitApp);
 
         //登录成功，隐藏登陆界面,基础面板根据登录用户的权限进行刷新,并且显示当前登录用户
-        //详情面板显示个人信息，用户个人信息面板刷新
+        //详情面板显示个人信息，用户个人信息面板刷新,安检业务刷新对应的安检员身份页面
         data.AddEventListener("loginSuccessEvent", LoginMgr.Instance.HideLoginPanel);
         data.AddEventListener("loginSuccessEvent", BaseMgr.Instance.UpdateUserPanel);
         data.AddEventListener("loginSuccessEvent", BaseMgr.Instance.UpdateListPanel);
         data.AddEventListener("loginSuccessEvent", BaseMgr.Instance.UpdateContentPanel);
         data.AddEventListener("loginSuccessEvent", SelfInfoMgr.Instance.UpdateContent);
+        data.AddEventListener("loginSuccessEvent", BusinessControlMgr.Instance.ResetBusinessPanel);
 
-        
+
+
 
     }
 

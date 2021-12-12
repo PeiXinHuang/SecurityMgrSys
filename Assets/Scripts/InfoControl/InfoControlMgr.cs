@@ -60,6 +60,7 @@ public class InfoControlMgr : MonoBehaviour
         view.ResetSendPanel();
         view.ResetReceivePanel();
         view.ResetHistroyPanel();
+        
     }
 
     /// <summary>
@@ -67,6 +68,7 @@ public class InfoControlMgr : MonoBehaviour
     /// </summary>
     public void UpdateSendUserDropdown()
     {
+        data.ClearReceiveIds();
         data.UpdateAllCanReceiveUsers();
     }
 

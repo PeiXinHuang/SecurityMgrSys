@@ -142,4 +142,253 @@ public class BusinessDatabaseMgr : MonoBehaviour
         }
 
     }
+
+    public List<Business> GetBusinessesByMemberId(string memberId)
+    {
+        List<Business> businesses = new List<Business>();
+        try
+        {
+            conn.Open();
+
+            string sql = string.Format("select * from business where memberUserId = '{0}'", memberId); //查询语句
+
+            //执行查询语句，并将查询到的数据返回到reader中
+            MySqlCommand command = new MySqlCommand(sql, conn);
+            MySqlDataReader reader = command.ExecuteReader();
+
+            while (reader.Read())
+            {
+                Business business = new Business();
+                business.id = reader[0].ToString();
+                business.title = reader[1].ToString();
+                business.content = reader[2].ToString();
+                business.adminUserId = reader[3].ToString();
+                business.memberUserId = reader[4].ToString();
+                business.tools = reader[5].ToString();
+                business.pdfName = reader[6].ToString();
+                switch (reader[7].ToString())
+                {
+                    case "0":
+                        business.state = Business.State.Doing;
+                        break;
+                    case "1":
+                        business.state = Business.State.Check;
+                        break;
+                    case "2":
+                        business.state = Business.State.Back;
+                        break;
+                    case "3":
+                        business.state = Business.State.Finish;
+                        break;
+                }
+
+                businesses.Add(business);
+
+            }
+
+
+
+        }
+        catch (System.Exception e)
+        {
+
+            Debug.LogError("GetBusiness data fail:" + e.ToString());
+        }
+        finally
+        {
+            conn.Close();
+        }
+
+        return businesses;
+    }
+
+
+    public List<Business> GetBusinessesByAdminId(string adminId)
+    {
+        List<Business> businesses = new List<Business>();
+        try
+        {
+            conn.Open();
+
+            string sql = string.Format("select * from business where adminUserId = '{0}'",adminId); //查询语句
+
+            //执行查询语句，并将查询到的数据返回到reader中
+            MySqlCommand command = new MySqlCommand(sql, conn);
+            MySqlDataReader reader = command.ExecuteReader();
+
+            while (reader.Read())
+            {
+                Business business = new Business();
+                business.id = reader[0].ToString();
+                business.title = reader[1].ToString();
+                business.content = reader[2].ToString();
+                business.adminUserId = reader[3].ToString();
+                business.memberUserId = reader[4].ToString();
+                business.tools = reader[5].ToString();
+                business.pdfName = reader[6].ToString();
+                switch (reader[7].ToString())
+                {
+                    case "0":
+                        business.state = Business.State.Doing;
+                        break;
+                    case "1":
+                        business.state = Business.State.Check;
+                        break;
+                    case "2":
+                        business.state = Business.State.Back;
+                        break;
+                    case "3":
+                        business.state = Business.State.Finish;
+                        break;
+                }
+
+                businesses.Add(business);
+
+            }
+
+
+
+        }
+        catch (System.Exception e)
+        {
+
+            Debug.LogError("GetBusiness data fail:" + e.ToString());
+        }
+        finally
+        {
+            conn.Close();
+        }
+
+        return businesses;
+    }
+
+    public Business.State GetBusinessStateById(string businessId)
+    {
+        Business.State state = Business.State.Doing;
+        try
+        {
+            conn.Open();
+
+            string sql = string.Format("select * from business where id = '{0}'", businessId); //查询语句
+
+            //执行查询语句，并将查询到的数据返回到reader中
+            MySqlCommand command = new MySqlCommand(sql, conn);
+            MySqlDataReader reader = command.ExecuteReader();
+            
+            if (reader.Read())
+            {
+            
+                switch (reader[7].ToString())
+                {
+                    case "0":
+                        state = Business.State.Doing;
+                        break;
+                    case "1":
+                        state = Business.State.Check;
+                        break;
+                    case "2":
+                        state = Business.State.Back;
+                        break;
+                    case "3":
+                        state = Business.State.Finish;
+                        break;
+                }
+
+            }
+
+
+
+        }
+        catch (System.Exception e)
+        {
+
+            Debug.LogError("GetBusiness all data fail:" + e.ToString());
+        }
+        finally
+        {
+            conn.Close();
+        }
+
+
+        return state;
+    }
+
+
+    public void UpdateBusinessStateById(string businessId, Business.State state)
+    {
+        int stateId = 0;
+        switch (state)
+        {
+            case Business.State.Doing:
+                stateId = 0;
+                break;
+            case Business.State.Check:
+                stateId = 1;
+                break;
+            case Business.State.Back:
+                stateId = 2;
+                break;
+            case Business.State.Finish:
+                stateId = 3;
+                break;
+            default:
+                break;
+        }
+
+
+        try
+        {
+            conn.Open();
+
+            //数据库更新语句
+            string sql = string.Format(
+                "Update business Set state = {0} where id = '{1}'",
+                stateId,businessId);
+
+
+            //执行更新语句
+            MySqlCommand command = conn.CreateCommand();
+            command.CommandText = sql;
+            command.ExecuteNonQuery();
+        }
+        catch (System.Exception e)
+        {
+            Debug.Log("Update Business Failed: " + e.ToString());
+        }
+        finally
+        {
+            conn.Close();
+        }
+    }
+
+    public void CreateNewBusinesses(string adminId,List<string> memberIds,string title, string content)
+    {
+        try
+        {
+            conn.Open();
+
+            foreach (string memberId in memberIds)
+            {
+                //数据库插入语句
+                string sql = string.Format("insert into business(adminUserId,memberUserId,title,content)" +
+                    " values('{0}','{1}','{2}','{3}')", adminId, memberId, title, content);
+
+
+                //执行插入语句
+                MySqlCommand command = conn.CreateCommand();
+                command.CommandText = sql;
+                command.ExecuteNonQuery();
+            }
+
+
+        }
+        catch (System.Exception e)
+        {
+            Debug.LogError("创建业务失败 " + e.ToString());
+        }
+        finally
+        {
+            conn.Close();
+        }
+    }
 }

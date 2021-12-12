@@ -76,8 +76,9 @@ public class BaseMgr : MonoBehaviour
         view.infoControlBtn.onClick.AddListener(InfoControlMgr.Instance.ResetPanel);
         view.infoControlBtn.onClick.AddListener(InfoControlMgr.Instance.UpdateSendUserDropdown);
 
-        //点击业务管理，刷新业务界面
-        view.businessControlBtn.onClick.AddListener(BusinessControlMgr.Instance.ResetPanel);
+        //点击业务管理，刷新业务界面,刷新能创建业务的安检员下拉列表
+        view.businessControlBtn.onClick.AddListener(BusinessControlMgr.Instance.ResetBusinessPanel);
+        view.businessControlBtn.onClick.AddListener(BusinessControlMgr.Instance.UpdateBusinessDropdown);
 
 
     }

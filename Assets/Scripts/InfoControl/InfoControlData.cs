@@ -82,7 +82,14 @@ public class InfoControlData : Object
     }
 
 
+   
+
+
     List<string> receiveIds = new List<string>();
+    public void ClearReceiveIds()
+    {
+        receiveIds.Clear();
+    }
     public void UpdateReceiveIds(string receiveId)
     {
    

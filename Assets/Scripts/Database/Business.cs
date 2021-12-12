@@ -24,4 +24,21 @@ public class Business : Object
     public string pdfName; //提交的PDF
     public State state; //当前状态
 
+    
+    public static string GetStateName(State state)
+    {
+        switch (state)
+        {
+            case State.Doing:
+                return "进行中";
+            case State.Check:
+                return "审批中";
+            case State.Back:
+                return "已驳回";
+            case State.Finish:
+                return "已完成";
+            default:
+                return "";
+        }
+    }
 }
