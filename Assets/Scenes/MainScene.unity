@@ -10082,7 +10082,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1101975966}
   m_HandleRect: {fileID: 1101975965}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -12956,7 +12956,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 11456696, guid: f10f8c4f3a820d44c9e68a31a19f6708, type: 3}
       propertyPath: m_FileName
-      value: TextPDF.pdf
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 11456696, guid: f10f8c4f3a820d44c9e68a31a19f6708, type: 3}
       propertyPath: m_FileSource
@@ -18069,7 +18069,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 0.46226418, g: 0.0283464, b: 0.0283464, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -22262,7 +22262,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u901A\u8FC7\u62A5\u544A"
+  m_Text: "\u901A\u8FC7\u63D0\u4EA4"
 --- !u!222 &1185774604
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -23774,7 +23774,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u67E5\u770B\u62A5\u544A"
+  m_Text: "\u67E5\u770B\u62A5\u8868"
 --- !u!222 &1231078920
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -24328,7 +24328,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u9A73\u56DE\u62A5\u544A"
+  m_Text: "\u9A73\u56DE\u63D0\u4EA4"
 --- !u!222 &1243698743
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -28534,7 +28534,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u63D0\u4EA4\u62A5\u544A"
+  m_Text: "\u63D0\u4EA4\u62A5\u8868"
 --- !u!222 &1417945558
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -29433,7 +29433,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 0.46226418, g: 0.0283464, b: 0.0283464, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -33058,7 +33058,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 0.46226418, g: 0.0283464, b: 0.0283464, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -36253,7 +36253,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u67E5\u770B\u62A5\u544A"
+  m_Text: "\u67E5\u770B\u62A5\u8868"
 --- !u!222 &1833217434
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -40575,7 +40575,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u67E5\u770B\u62A5\u544A"
+  m_Text: "\u67E5\u770B\u62A5\u8868"
 --- !u!222 &2052611906
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -41449,7 +41449,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 186389661}
   m_HandleRect: {fileID: 186389660}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:

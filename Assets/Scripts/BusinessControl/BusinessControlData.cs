@@ -120,10 +120,10 @@ public class BusinessControlData
 
                 break;
             case Business.State.Back:
-                MessageBoxMgr.Instance.ShowWarnning("按检业务驳回中，无法通过");
+                MessageBoxMgr.Instance.ShowWarnning("安检业务驳回中，无法通过");
                 break;
             case Business.State.Finish:
-                MessageBoxMgr.Instance.ShowWarnning("按检业务已完成，无法再次通过");
+                MessageBoxMgr.Instance.ShowWarnning("安检业务已完成，无法再次通过");
                 break;
             default:
                 return;
@@ -231,21 +231,47 @@ public class BusinessControlData
 
     public void SendPdfFile()
     {
+        if (string.IsNullOrEmpty(currentSelectBusinessId))
+        {
+            MessageBoxMgr.Instance.ShowWarnning("当前没有选中安检业务");
+            return;
+        }
+        if (BusinessDatabaseMgr.Instance.GetBusinessStateById(currentSelectBusinessId) == Business.State.Check)
+        {
+            MessageBoxMgr.Instance.ShowWarnning("安检业务审核中，无法提交安检报表文件");
+            return;
+        }
+        else if(BusinessDatabaseMgr.Instance.GetBusinessStateById(currentSelectBusinessId) == Business.State.Finish)
+        {
+            MessageBoxMgr.Instance.ShowWarnning("安检业务已完成，无法提交安检报表文件");
+            return;
+        }
 
-        string path = EditorUtility.OpenFilePanel("上传安检记录文件", "", "pdf");
+
+        string path = EditorUtility.OpenFilePanel("上传安检报表文件", "", "pdf");
         if (path.Length != 0)
         {
             if (path.ToLower().EndsWith(".pdf"))
             {
+                if(File.Exists(Application.streamingAssetsPath + "/" + currentSelectBusinessId + ".pdf"))
+                {
+                    File.Delete(Application.streamingAssetsPath + "/" + currentSelectBusinessId + ".pdf");
+                }
                 File.Copy(path, Application.streamingAssetsPath + "/" + currentSelectBusinessId + ".pdf");
-                
-               
+                BusinessDatabaseMgr.Instance.UpdateBusinessStateById(currentSelectBusinessId, Business.State.Check);
+
+                BusinessDatabaseMgr.Instance.UpdatePdfName(currentSelectBusinessId, currentSelectBusinessId + ".pdf");
+
             }
             else
             {
                 MessageBoxMgr.Instance.ShowWarnning("请上传pdf文件");
             }
-            
+
+
+            BusinessControlMgr.Instance.ResetBusinessPanel();
+
+            MessageBoxMgr.Instance.ShowInfo("安检报表文件上传成功");
         }
     }
 }

@@ -26,6 +26,7 @@ public class BusinessControlView : MonoBehaviour
     public void ShowBusinessPanel()
     {
         businessPanel.transform.SetAsLastSibling();
+
     }
 
     public void ShowPDFView(string businessId, string pdfName)
@@ -43,6 +44,7 @@ public class BusinessControlView : MonoBehaviour
 
         pdfPanel.transform.SetAsLastSibling();
         pdfViewer.FileName = pdfName;
+        pdfViewer.ReloadDocument();
     }
 
     public void ResetBusinessControlPanel()

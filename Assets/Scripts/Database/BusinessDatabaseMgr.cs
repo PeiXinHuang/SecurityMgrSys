@@ -391,4 +391,31 @@ public class BusinessDatabaseMgr : MonoBehaviour
             conn.Close();
         }
     }
+
+    public void UpdatePdfName(string businessId, string pdfName)
+    {
+        try
+        {
+            conn.Open();
+
+            //数据库更新语句
+            string sql = string.Format(
+                "Update business Set pdfName = '{0}' where id = '{1}'",
+                pdfName, businessId);
+
+
+            //执行更新语句
+            MySqlCommand command = conn.CreateCommand();
+            command.CommandText = sql;
+            command.ExecuteNonQuery();
+        }
+        catch (System.Exception e)
+        {
+            Debug.Log("Update Business pdfName Failed: " + e.ToString());
+        }
+        finally
+        {
+            conn.Close();
+        }
+    }
 }
