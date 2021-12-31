@@ -41,7 +41,7 @@ CREATE TABLE `business` (
 
 LOCK TABLES `business` WRITE;
 /*!40000 ALTER TABLE `business` DISABLE KEYS */;
-INSERT INTO `business` VALUES (1,'地铁安检','检查地铁的消防工作进度','00003','00014',NULL,'TextPDF.pdf',0),(3,'新的安检业务','飞机安检行动','00003','00012',NULL,NULL,0),(4,'消防安检','检查消防设备是否齐全，消防工作是否到位','00003','00012',NULL,NULL,0),(5,'这个安检业务','随便看着办吧','00003','00012',NULL,NULL,0),(6,'这个安检业务','随便看着办吧','00003','00016',NULL,NULL,0),(7,'这个安检业务','随便看着办吧','00003','00017',NULL,NULL,0);
+INSERT INTO `business` VALUES (1,'地铁安检','检查地铁的消防工作进度','00003','00014',NULL,'',0),(3,'新的安检业务','飞机安检行动','00003','00012',NULL,'3.pdf',1),(4,'消防安检','检查消防设备是否齐全，消防工作是否到位','00003','00012',NULL,'4.pdf',1),(5,'这个安检业务','随便看着办吧','00003','00012',NULL,'5.pdf',1),(6,'这个安检业务','随便看着办吧','00003','00016',NULL,'6.pdf',1),(7,'这个安检业务','随便看着办吧','00003','00017',NULL,'诗词APP.pdf',1);
 /*!40000 ALTER TABLE `business` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -54,4 +54,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-12-12 19:10:11
+-- Dump completed on 2021-12-31 21:00:34

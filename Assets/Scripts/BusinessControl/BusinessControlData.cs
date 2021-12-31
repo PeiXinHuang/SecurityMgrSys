@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.InteropServices;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
@@ -9,7 +11,7 @@ public class BusinessControlData
 {
 
     private event UnityAction<Business.State> UpdateBusinessState;
-    private event UnityAction  UpdateCanAddMember;
+    private event UnityAction UpdateCanAddMember;
 
     public void AddEventListener(string eventName, UnityAction<Business.State> function)
     {
@@ -42,20 +44,17 @@ public class BusinessControlData
     }
 
 
-
-
-
     public string currentSelectBusinessId = string.Empty;
     public string currentSelectPdfName = string.Empty;
 
     public void DeleteCurrentSelectBusiness()
     {
-        if(string.IsNullOrEmpty(currentSelectBusinessId))
+        if (string.IsNullOrEmpty(currentSelectBusinessId))
         {
             MessageBoxMgr.Instance.ShowWarnning("当前没有选中安检业务");
             return;
         }
-       
+
         BusinessDatabaseMgr.Instance.DeleteBusinessById(currentSelectBusinessId);
 
         MessageBoxMgr.Instance.ShowInfo("删除业务成功");
@@ -241,19 +240,21 @@ public class BusinessControlData
             MessageBoxMgr.Instance.ShowWarnning("安检业务审核中，无法提交安检报表文件");
             return;
         }
-        else if(BusinessDatabaseMgr.Instance.GetBusinessStateById(currentSelectBusinessId) == Business.State.Finish)
+        else if (BusinessDatabaseMgr.Instance.GetBusinessStateById(currentSelectBusinessId) == Business.State.Finish)
         {
             MessageBoxMgr.Instance.ShowWarnning("安检业务已完成，无法提交安检报表文件");
             return;
         }
 
 
-        string path = EditorUtility.OpenFilePanel("上传安检报表文件", "", "pdf");
+        //string path = EditorUtility.OpenFilePanel("上传安检报表文件", "", "pdf");
+
+        string path = OpenDialog.OpenFileDialog(OpenDialog.FileType.None);
         if (path.Length != 0)
         {
             if (path.ToLower().EndsWith(".pdf"))
             {
-                if(File.Exists(Application.streamingAssetsPath + "/" + currentSelectBusinessId + ".pdf"))
+                if (File.Exists(Application.streamingAssetsPath + "/" + currentSelectBusinessId + ".pdf"))
                 {
                     File.Delete(Application.streamingAssetsPath + "/" + currentSelectBusinessId + ".pdf");
                 }
@@ -272,6 +273,116 @@ public class BusinessControlData
             BusinessControlMgr.Instance.ResetBusinessPanel();
 
             MessageBoxMgr.Instance.ShowInfo("安检报表文件上传成功");
+        }
+
+
+    }
+
+
+
+    class OpenDialog
+    {
+
+        public enum FileType
+        {
+            None,
+            Text,
+            Texture,
+            Video,
+            Music,
+        }
+        /// <summary>
+        /// 打开一个窗口选择一个文件
+        /// </summary>
+        /// <param name="fileType">需要选择的文件类型</param>
+        /// <param name="openPath">设置打开的默认路径</param>
+        /// <returns>返回选择文件的路径</returns>
+        public static string OpenFileDialog(FileType fileType, string openPath = null)
+        {
+            OpenFileName ofn = new OpenFileName();
+            ofn.structSize = Marshal.SizeOf(ofn);
+            string fliter = string.Empty;
+            switch (fileType)
+            {
+                case FileType.None:
+                    fliter = "All Files(*.*)\0*.*\0\0";
+                    break;
+                case FileType.Text:
+                    fliter = "Text Files(*文本文件)\0*.txt\0";
+                    break;
+                case FileType.Texture:
+                    fliter = "Texure Files(*图片文件)\0*.png;*.jpg\0";
+                    break;
+                case FileType.Video:
+                    fliter = "Video Files(*视频文件)\0*.mp4;*.mov\0";
+                    break;
+                case FileType.Music:
+                    fliter = "Music Files(*音频文件)\0*.wav;*.mp3\0";
+                    break;
+            }
+            ofn.filter = fliter;//设置需要选择的类型
+            ofn.file = new string(new char[256]);
+            ofn.maxFile = ofn.file.Length;
+            ofn.fileTitle = new string(new char[64]);
+            ofn.maxFileTitle = ofn.fileTitle.Length;
+            if (string.IsNullOrEmpty(openPath))
+                ofn.initialDir = System.Environment.CurrentDirectory; //打开的默认路径自行更改
+            else
+                ofn.initialDir = openPath;
+            ofn.title = "选择文件";//标题 自定义 自行更改
+                               //0x00000200  设置用户可以选择多个文件 不使用 暂时没找到解析多个文件路径的解决方法
+                               //具体含义查看给到的参考文献链接
+            ofn.flags = 0x00080000 | 0x00001000 | 0x00000800 | 0x00000008;
+            if (OpenDialog.GetOFN(ofn))
+            {
+                Debug.Log(ofn.file);
+                return ofn.file;
+            }
+            return "";
+        }
+
+
+        //链接指定系统函数       打开文件对话框
+        [DllImport("Comdlg32.dll", SetLastError = true, ThrowOnUnmappableChar = true, CharSet = CharSet.Auto)]
+        public static extern bool GetOpenFileName([In, Out] OpenFileName ofn);
+        public static bool GetOFN([In, Out] OpenFileName ofn)
+        {
+            return GetOpenFileName(ofn);
+        }
+        //链接指定系统函数        另存为对话框
+        [DllImport("Comdlg32.dll", SetLastError = true, ThrowOnUnmappableChar = true, CharSet = CharSet.Auto)]
+        public static extern bool GetSaveFileName([In, Out] OpenFileName ofn);
+        public static bool GetSFN([In, Out] OpenFileName ofn)
+        {
+            return GetSaveFileName(ofn);
+        }
+
+        [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto)]
+        public class OpenFileName
+        {
+            public int structSize = 0;
+            public IntPtr dlgOwner = IntPtr.Zero;
+            public IntPtr instance = IntPtr.Zero;
+            public String filter = null;
+            public String customFilter = null;
+            public int maxCustFilter = 0;
+            public int filterIndex = 0;
+            public String file = null;
+            public int maxFile = 0;
+            public String fileTitle = null;
+            public int maxFileTitle = 0;
+            public String initialDir = null;
+            public String title = null;
+            public int flags = 0;
+            public short fileOffset = 0;
+            public short fileExtension = 0;
+            public String defExt = null;
+            public IntPtr custData = IntPtr.Zero;
+            public IntPtr hook = IntPtr.Zero;
+            public String templateName = null;
+            public IntPtr reservedPtr = IntPtr.Zero;
+            public int reservedInt = 0;
+            public int flagsEx = 0;
         }
     }
 }
