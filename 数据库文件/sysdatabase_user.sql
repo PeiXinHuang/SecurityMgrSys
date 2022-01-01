@@ -40,7 +40,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES ('00003','Admin','沛鑫','男','123456','12345678910'),('00004','Admin','黄沛鑫','女','123456','1234567891'),('00007','Admin','沛鑫','男','123456','12345678910'),('00008','Admin','沛鑫','男','123456','12345678910'),('00012','Member','沛鑫','男','123456','12345678910'),('00013','SysAdmin','李四','男','123456','123456789'),('00014','SysAdmin','叶丰龙','女','123456','123456789'),('00015','Admin','王五','男','123456','123456789'),('00016','Member','阿布若','男','123456',''),('00017','Member','卢克','男','123456','');
+INSERT INTO `user` VALUES ('00001','Admin','黄沛鑫','男','123456','123456789'),('00002','Member','叶丰龙','男','123456',''),('00003','SysAdmin','甄宇龙','男','123456','000000000'),('00004','Member','王一一','女','123456','123456789'),('00005','Member','张三','男','123456',''),('00006','Member','李四','男','123456',''),('00009','Member','伍浩然','男','123456','');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -53,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-12-31 21:00:33
+-- Dump completed on 2022-01-01 14:01:45

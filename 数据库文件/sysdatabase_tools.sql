@@ -32,7 +32,7 @@ CREATE TABLE `tools` (
   `uName` varchar(45) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
   `uId` int DEFAULT NULL,
   PRIMARY KEY (`tId`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -41,7 +41,7 @@ CREATE TABLE `tools` (
 
 LOCK TABLES `tools` WRITE;
 /*!40000 ALTER TABLE `tools` DISABLE KEYS */;
-INSERT INTO `tools` VALUES (1,'安检门','大型',1,NULL,NULL,NULL,NULL),(2,'安检门','大型',0,NULL,NULL,NULL,NULL),(3,'金属探测仪','小型',2,'2021-12-31','2021-12-31','沛鑫',3),(4,'金属探测仪','小型',1,'2021-12-31',NULL,'沛鑫',3),(5,'金属探测仪','小型',0,NULL,NULL,NULL,NULL),(6,'金属探测仪','小型',1,'2021-12-30',NULL,'沛鑫',3),(7,'金属探测仪','小型',0,NULL,'2021-12-30',NULL,NULL),(8,'X光检测机','大型',0,NULL,NULL,NULL,NULL),(9,'X光检测机','大型',2,'2021-12-30','2021-12-31','沛鑫',3),(10,'X光检测机','大型',1,'2021-12-30',NULL,'沛鑫',3),(11,'X光检测机','大型',0,'2021-12-30','2021-12-30',NULL,NULL),(12,'安检门','大型',0,NULL,NULL,NULL,NULL),(13,'安检门','大型',2,NULL,'2021-12-30',NULL,NULL),(14,'安检门','大型',2,'2021-12-30','2021-12-31',NULL,NULL),(15,'安检门','大型',1,'2021-12-31',NULL,'沛鑫',3),(16,'铁铲','中型',0,NULL,NULL,NULL,NULL),(17,'铁铲','中型',1,'2021-12-31',NULL,'沛鑫',3),(18,'铁铲','中型',0,NULL,NULL,NULL,NULL),(19,'铁铲','中型',0,NULL,NULL,NULL,NULL);
+INSERT INTO `tools` VALUES (20,'金属探测仪','大型',0,NULL,NULL,NULL,NULL),(21,'金属探测仪','大型',0,NULL,NULL,NULL,NULL),(22,'金属探测仪','大型',0,NULL,NULL,NULL,NULL),(23,'金属探测仪','大型',0,NULL,NULL,NULL,NULL),(24,'金属探测仪','大型',0,NULL,NULL,NULL,NULL),(25,'安检门','大型',0,NULL,NULL,NULL,NULL),(26,'安检门','大型',0,NULL,NULL,NULL,NULL),(27,'安检门','大型',2,NULL,'2022-01-01',NULL,NULL),(28,'安检门','大型',0,NULL,NULL,NULL,NULL),(29,'安检门','大型',0,'2022-01-01','2022-01-01',NULL,NULL),(30,'安检门','中型',0,'2022-01-01','2022-01-01',NULL,NULL),(31,'安检门','中型',1,'2022-01-01',NULL,'叶丰龙',2),(32,'安检门','中型',1,'2022-01-01',NULL,'黄沛鑫',1),(33,'X光检测机','中型',0,'2022-01-01','2022-01-01',NULL,NULL),(34,'X光检测机','中型',2,NULL,'2022-01-01',NULL,NULL),(35,'X光检测机','大型',0,NULL,NULL,NULL,NULL),(36,'X光检测机','大型',0,NULL,NULL,NULL,NULL),(37,'X光检测机','大型',0,NULL,NULL,NULL,NULL),(38,'测温计','小型',0,NULL,NULL,NULL,NULL),(39,'测温计','小型',0,NULL,NULL,NULL,NULL),(40,'测温计','小型',0,NULL,NULL,NULL,NULL),(41,'测温计','小型',0,NULL,NULL,NULL,NULL),(42,'测温计','小型',0,NULL,NULL,NULL,NULL),(43,'测温计','小型',0,NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `tools` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -54,4 +54,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-12-31 21:00:33
+-- Dump completed on 2022-01-01 14:01:45

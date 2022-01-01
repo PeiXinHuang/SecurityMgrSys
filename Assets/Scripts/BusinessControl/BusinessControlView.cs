@@ -96,14 +96,29 @@ public class BusinessControlView : MonoBehaviour
             string pdfName = business.pdfName;
             Business.State state = business.state;
 
+
             string memberName = UserDatabaseMgr.Instance.GetUserDataById(memberUserId).userName;
             string adminName = UserDatabaseMgr.Instance.GetUserDataById(adminUserId).userName;
 
-            if (string.IsNullOrEmpty(memberName))
-                memberName = "已注销";
 
-            if (string.IsNullOrEmpty(adminName))
-                adminName = "已注销";
+            if (!string.IsNullOrEmpty(memberName))
+            {
+                memberName = string.Format("{0}({1})", UserDatabaseMgr.Instance.GetUserDataById(memberUserId).userName, memberUserId.ToString());
+            }
+            else
+            {
+                memberName = string.Format("{0}({1})", "已注销", memberUserId.ToString());
+            }
+
+            if (!string.IsNullOrEmpty(adminName))
+            {
+                adminName = string.Format("{0}({1})", UserDatabaseMgr.Instance.GetUserDataById(adminUserId).userName, adminUserId.ToString());
+            }
+            else
+            {
+                adminName = string.Format("{0}({1})", "已注销", adminUserId.ToString());
+            }
+
 
             newItem.transform.GetChild(0).GetComponent<Text>().text = string.Format("{0}({1})",title, memberName);
             Button clickBtn = newItem.GetComponent<Button>();
@@ -117,7 +132,7 @@ public class BusinessControlView : MonoBehaviour
         sysTitle.text = title;
         sysContent.text = content;
         sysName.text = "安检员：" + name;
-        sysName2.text = "安检管理员：" + name2;
+        sysName2.text = "管理员：" + name2;
         sysSpace.gameObject.SetActive(true);
         sysState.text = "状态：" + Business.GetStateName(state);
         BusinessControlMgr.Instance.SetCurrentBusiness(id,pdfName);
@@ -179,10 +194,24 @@ public class BusinessControlView : MonoBehaviour
             string adminName = UserDatabaseMgr.Instance.GetUserDataById(adminUserId).userName;
 
 
-            if (string.IsNullOrEmpty(memberName))
-                memberName = "已注销";
-            if (string.IsNullOrEmpty(adminName))
-                adminName = "已注销";
+            if (!string.IsNullOrEmpty(memberName))
+            {
+                memberName = string.Format("{0}({1})", UserDatabaseMgr.Instance.GetUserDataById(memberUserId).userName, memberUserId.ToString());
+            }
+            else
+            {
+                memberName = string.Format("{0}({1})", "已注销", memberUserId.ToString());
+            }
+
+            if (!string.IsNullOrEmpty(adminName))
+            {
+                adminName = string.Format("{0}({1})", UserDatabaseMgr.Instance.GetUserDataById(adminUserId).userName, adminUserId.ToString());
+            }
+            else
+            {
+                adminName = string.Format("{0}({1})", "已注销", adminUserId.ToString());
+            }
+
             newItem.transform.GetChild(0).GetComponent<Text>().text = string.Format("{0}({1})", title, memberName);
             Button clickBtn = newItem.GetComponent<Button>();
             clickBtn.onClick.AddListener(() => ShowAdminBusinessContent(id, title, content, memberName, adminName, pdfName, state));
@@ -195,7 +224,7 @@ public class BusinessControlView : MonoBehaviour
         adminTitle.text = title;
         adminContent.text = content;
         adminName.text = "安检员：" + name;
-        adminName2.text = "安检管理员：" + name2;
+        adminName2.text = "管理员：" + name2;
         adminSpace.gameObject.SetActive(true);
         adminState.text = "状态：" + Business.GetStateName(state);
         BusinessControlMgr.Instance.SetCurrentBusiness(id, pdfName);
@@ -282,12 +311,26 @@ public class BusinessControlView : MonoBehaviour
 
             string memberName = UserDatabaseMgr.Instance.GetUserDataById(memberUserId).userName;
             string adminName = UserDatabaseMgr.Instance.GetUserDataById(adminUserId).userName;
+            
 
-            if (string.IsNullOrEmpty(memberName))
-                memberName = "已注销";
-
-            if (string.IsNullOrEmpty(adminName))
-                adminName = "已注销";
+            if (!string.IsNullOrEmpty(memberName))
+            {
+                memberName = string.Format("{0}({1})", UserDatabaseMgr.Instance.GetUserDataById(memberUserId).userName, memberUserId.ToString());
+            }
+            else
+            {
+                memberName = string.Format("{0}({1})", "已注销", memberUserId.ToString());
+            }
+                
+            if (!string.IsNullOrEmpty(adminName))
+            {
+                adminName = string.Format("{0}({1})", UserDatabaseMgr.Instance.GetUserDataById(adminUserId).userName, adminUserId.ToString());
+            }
+            else
+            {
+                adminName = string.Format("{0}({1})", "已注销", adminUserId.ToString());
+            }
+     
 
             newItem.transform.GetChild(0).GetComponent<Text>().text = string.Format("{0}({1})", title, memberName);
             Button clickBtn = newItem.GetComponent<Button>();
@@ -301,7 +344,7 @@ public class BusinessControlView : MonoBehaviour
         memberTitle.text = title;
         memberContent.text = content;
         memberName.text = "安检员：" + name;
-        memberName2.text = "安检管理员：" + name2;
+        memberName2.text = "管理员：" + name2;
         memberSpace.gameObject.SetActive(true);
         memberState.text = "状态：" + Business.GetStateName(state);
         BusinessControlMgr.Instance.SetCurrentBusiness(id, pdfName);
